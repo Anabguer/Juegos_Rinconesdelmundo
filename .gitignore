@@ -1,0 +1,79 @@
+# Android
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# APK files
+*.apk
+*.aab
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Node modules (if any)
+node_modules/
+
+# Build outputs
+app/build/
+build/
+
+# Android Studio
+.idea/
+*.iml
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log/OS Files
+*.log
+*.DS_Store
+
+# Android Profiling
+*.hprof
+
+# Backup files
+*.bak
+*.backup
+
+# Test files
+test/
+tests/
+*_test.*
+*_spec.*
+
+# Documentation drafts
+*.draft
+*.temp.md
+
+# IDE files
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini

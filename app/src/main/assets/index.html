@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Rincones del Mundo - Puzzles Visuales</title>
+    <base href="./">
+    <link rel="stylesheet" href="css/styles.css?v=59">
+    <!-- Fuentes locales para WebView -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    </style>
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <!-- Barra de menú superior fija -->
+    <div id="top-menu-bar" class="top-menu-bar">
+        <div class="menu-content">
+            <div id="user-nick-display" class="user-nick-display" style="display: none;"></div>
+            <button id="menu-settings" class="menu-btn" title="Ajustes">⚙️</button>
+            <button id="menu-login" class="menu-btn" title="Iniciar Sesión">👤</button>
+            <button id="menu-ranking" class="menu-btn" title="Ranking">🏆</button>
+            <button id="menu-map" class="menu-btn" title="Mapa de Mundos">🗺️</button>
+            <button id="menu-levels" class="menu-btn" title="Niveles" style="display: none;">📋</button>
+            <button id="menu-surprise" class="menu-btn" title="Sorpréndeme">🎲</button>
+            <button id="menu-shuffle" class="menu-btn" title="Mezclar Puzzle" style="display: none;">🔀</button>
+            <button id="menu-hint" class="menu-btn" title="Pista" style="display: none;">💡</button>
+            <button id="menu-preview" class="menu-btn" title="Vista Previa" style="display: none;">👁️</button>
+        </div>
+    </div>
+
+    <!-- Pantalla de carga -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <h1>🌍 Rincones del Mundo</h1>
+                <p>Descubre lugares increíbles del planeta</p>
+            </div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Pantalla de inicio -->
+    <div id="home-screen" class="screen home-screen" style="display: none;">
+        <!-- Burbujas decorativas -->
+        <div class="bubble-cyan"></div>
+        <div class="bubble-white"></div>
+        
+        <!-- Partículas blancas -->
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        
+        <div class="home-content">
+            <div class="home-logo">
+                <img src="img/logo.png" alt="Rincones del Mundo" class="logo-image">
+                <div class="logo-glow"></div>
+            </div>
+            
+            <div class="home-text">
+                <h2 class="home-subtitle">Viaja a tu ritmo, pieza a pieza</h2>
+            </div>
+            
+            <!-- Campo de nick para login directo -->
+            <div class="nick-login-section">
+                <div class="nick-input-group">
+                    <input type="text" id="nick-input" class="nick-input" placeholder="Introduce tu nick" maxlength="20">
+                    <button id="nick-login-btn" class="nick-login-btn">
+                        <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                            <polyline points="10,17 15,12 10,7"></polyline>
+                            <line x1="15" y1="12" x2="3" y2="12"></line>
+                        </svg>
+                        <span>Conectar</span>
+                    </button>
+                </div>
+                <p class="nick-help-text">Introduce tu nick para conectarte con tu cuenta existente</p>
+            </div>
+
+            <div class="home-buttons">
+                <button id="play-now-btn" class="home-btn primary-btn">
+                    <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="5,3 19,12 5,21"></polygon>
+                    </svg>
+                    <span class="btn-text">Jugar ahora</span>
+                </button>
+                
+                <button id="explore-worlds-btn" class="home-btn secondary-btn">
+                    <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span class="btn-text">Explorar mundos</span>
+                </button>
+                
+                <button id="google-login-btn" class="home-btn google-btn">
+                    <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                        <polyline points="10,17 15,12 10,7"></polyline>
+                        <line x1="15" y1="12" x2="3" y2="12"></line>
+                    </svg>
+                    <span class="btn-text">Conéctate con Google</span>
+                </button>
+                
+                <button id="google-red-btn" class="home-btn google-red-btn">
+                    <span class="btn-text">GOOGLE</span>
+                </button>
+            </div>
+            
+            <div class="home-footer">
+                <p class="copyright-text">© 2024 @intocables13. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de mundos -->
+    <div id="worlds-screen" class="screen worlds-screen" style="display: none;">
+        <!-- Burbujas decorativas -->
+        <div class="bubble-cyan"></div>
+        <div class="bubble-white"></div>
+        
+        <!-- Partículas blancas -->
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        
+        <div class="worlds-header">
+            <!-- Las estadísticas ahora están en los botones flotantes -->
+        </div>
+
+        <div class="worlds-grid" id="worlds-grid">
+            <!-- Los mundos se generarán dinámicamente -->
+        </div>
+        
+
+    </div>
+
+    <!-- Pantalla de niveles de un mundo -->
+    <div id="levels-screen" class="screen levels-screen" style="display: none;">
+        <!-- Burbujas decorativas -->
+        <div class="bubble-cyan"></div>
+        <div class="bubble-white"></div>
+        
+        <!-- Partículas blancas -->
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        
+        
+        <div class="levels-header">
+            <h1 id="current-world-title">Mundo</h1>
+            <div class="world-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="world-progress-fill"></div>
+                </div>
+                <span id="world-progress-text">0/15</span>
+            </div>
+        </div>
+
+        <div class="levels-grid" id="levels-grid">
+            <!-- Los niveles se generarán dinámicamente -->
+        </div>
+        
+    </div>
+
+    <!-- Pantalla de puzzle -->
+    <div id="puzzle-screen" class="screen puzzle-screen" style="display: none;">
+        <!-- Partículas blancas -->
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        
+        
+        <div class="puzzle-header">
+            <div class="puzzle-title-container">
+                <h2 id="puzzle-title">Puzzle</h2>
+                <div class="puzzle-timer">
+                    <svg class="timer-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12,6 12,12 16,14"></polyline>
+                    </svg>
+                    <span id="puzzle-time">00:00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="puzzle-container">
+            <div class="puzzle-area" id="puzzle-area">
+                <!-- El puzzle se generará dinámicamente -->
+            </div>
+        </div>
+
+        <div class="puzzle-bottom-controls">
+            <button id="next-level-btn" class="next-button">Siguiente</button>
+        </div>
+
+        <div class="puzzle-controls">
+            <!-- Los controles ahora están en la barra de menú superior -->
+        </div>
+    </div>
+
+    <!-- Pantalla de completado -->
+    <div id="completed-screen" class="screen completed-screen" style="display: none;">
+        <div class="completed-toast">
+            <div class="toast-time"><span>🕒</span><span id="completed-time">00:00</span></div>
+            <div class="toast-curiosity" id="completed-curiosity-text">Curiosidad del lugar</div>
+            <div class="toast-actions">
+                <button id="back-to-levels-from-completed" class="toast-btn">⬅️</button>
+                <button id="next-puzzle" class="toast-btn">➡️</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de ajustes -->
+    <div id="settings-screen" class="screen settings-screen" style="display: none;">
+        <div class="settings-content">
+            <div class="settings-header">
+                <button id="close-settings" class="close-btn">✕</button>
+                <h1>⚙️ Ajustes</h1>
+            </div>
+            
+            <div class="settings-sections">
+                <div class="settings-section">
+                    <h3>🔊 Audio</h3>
+                    <div class="setting-item">
+                        <label for="sound-toggle">Sonido:</label>
+                        <input type="checkbox" id="sound-toggle" checked>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>👤 Cuenta</h3>
+                    <div class="setting-item">
+                        <button id="google-login" class="btn-secondary" disabled>
+                            🔐 Iniciar sesión con Google
+                        </button>
+                        <p class="setting-note">Próximamente disponible</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de ajustes -->
+    <div id="settings-screen" class="screen settings-screen" style="display: none;">
+        <div class="settings-header">
+            <button id="close-settings" class="back-btn">← Volver</button>
+            <h2>⚙️ Ajustes</h2>
+        </div>
+        
+        <div class="settings-content">
+            <div class="settings-section">
+                <h3>🔊 Audio</h3>
+                <div class="setting-item">
+                    <label for="sound-toggle">Sonido</label>
+                    <input type="checkbox" id="sound-toggle" class="toggle-switch">
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>🔐 Cuenta</h3>
+                <div class="setting-item">
+                    <button id="google-auth-btn" class="auth-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                            <polyline points="10,17 15,12 10,7"></polyline>
+                            <line x1="15" y1="12" x2="3" y2="12"></line>
+                        </svg>
+                        <span id="auth-status">Conectar con Google</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>ℹ️ Información</h3>
+                <div class="info-item">
+                    <span class="info-label">Versión:</span>
+                    <span class="info-value">1.0.0</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Desarrollado por:</span>
+                    <span class="info-value">@intocables13</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de autenticación -->
+    <div id="auth-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="auth-title">Iniciar Sesión</h3>
+                <button class="modal-close" id="close-auth-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="auth-form">
+                    <!-- Formulario de autenticación se generará dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="background-music" loop>
+        <source src="audio/background.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="move-sound">
+        <source src="audio/move.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="complete-sound">
+        <source src="audio/complete.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Modal de vista previa del puzzle -->
+    <div id="puzzle-preview-modal" class="puzzle-preview-modal" style="display: none;">
+        <div class="puzzle-preview-content">
+            <div class="puzzle-preview-header">
+                <h3>👁️ Vista Previa del Puzzle</h3>
+                <div class="preview-timer">
+                    <span id="preview-countdown">5</span>s
+                </div>
+            </div>
+            <div class="puzzle-preview-image">
+                <img id="preview-puzzle-img" src="" alt="Vista previa del puzzle">
+            </div>
+            <div class="puzzle-preview-footer">
+                <p>¡Estudia la imagen y completa el puzzle!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botones flotantes globales -->
+    <div class="floating-buttons">
+        <div id="floating-user-nick" class="floating-user-nick" style="display: none;"></div>
+        <div class="floating-buttons-row">
+            <button id="floating-worlds-btn" class="floating-btn worlds-btn" title="Mundos">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span class="floating-btn-text">Mundos</span>
+            </button>
+            <button id="floating-time-btn" class="floating-btn time-btn" title="Tiempo">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12,6 12,12 16,14"></polyline>
+                </svg>
+                <span class="floating-btn-text" id="floating-time-text">00:00</span>
+            </button>
+            <button id="floating-puzzles-btn" class="floating-btn puzzles-btn" title="Puzzles">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 7h3a1 1 0 0 0 1-1V5a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1v-1a2 2 0 0 0-4 0v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H1a2 2 0 0 1 0-4h1a1 1 0 0 0 1-1V8a1 1 0 0 1 1-1z"></path>
+                </svg>
+                <span class="floating-btn-text" id="floating-puzzles-text">0</span>
+            </button>
+            <button id="floating-sound-btn" class="floating-btn sound-btn" title="Música">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11,5 6,9 2,9 2,15 6,15 11,19"></polygon>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/firebase-integration.js"></script>
+    <script src="js/app.js?v=31"></script>
+</body>
+</html>
