@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Rincones del Mundo</string>
+    
+    <!-- Firebase Android Client ID - Configurado correctamente -->
+    <string name="default_web_client_id">989954746255-kehgfamu60qpf1jtvmb44ovegbf54tc3.apps.googleusercontent.com</string>
+    
+    <!-- Mensajes de la aplicación -->
+    <string name="login_title">Iniciar Sesión</string>
+    <string name="nick_setup_title">Configurar Nick</string>
+    <string name="ranking_title">Ranking</string>
+    
+    <!-- AdMob IDs -->
+    <string name="admob_app_id">ca-app-pub-1338301235950360~6521538327</string>
+    <string name="admob_banner_id">ca-app-pub-1338301235950360/5855517436</string>
+    <string name="admob_interstitial_id">ca-app-pub-1338301235950360/7035262386</string>
+    <string name="admob_rewarded_id">ca-app-pub-1338301235950360/3096017372</string>
+    <string name="nick_hint">Ingresa tu nick</string>
+    <string name="nick_taken">Este nick ya está en uso</string>
+    <string name="nick_success">Nick configurado correctamente</string>
+    <string name="login_success">Sesión iniciada correctamente</string>
+    <string name="login_error">Error al iniciar sesión</string>
+    <string name="ranking_empty">No hay usuarios en el ranking</string>
+    <string name="loading">Cargando...</string>
+    <string name="error_generic">Ha ocurrido un error</string>
+</resources>

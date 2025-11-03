@@ -9,11 +9,46 @@ android_nativo/.gradle/
 android_nativo/local.properties
 android_nativo/gradle/wrapper/gradle-8.0/
 
+# Android general
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/build
+/captures
+.externalNativeBuild
+.cxx
+app/build/
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# APKs y archivos binarios
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+
 # Archivos temporales y logs
 *.log
 *.tmp
+*.temp
+*.bak
+*.backup
+*.hprof
+
+# OS Files
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 
 # IDE
 .vscode/
@@ -22,9 +57,12 @@ Thumbs.db
 *.swo
 *~
 
-# APKs y archivos binarios
-*.apk
-*.ap_
-*.dex
-*.class
+# Test files
+test/
+tests/
+*_test.*
+*_spec.*
 
+# Documentation drafts
+*.draft
+*.temp.md
