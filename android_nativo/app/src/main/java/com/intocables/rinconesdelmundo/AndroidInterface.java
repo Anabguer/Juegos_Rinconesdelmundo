@@ -8,8 +8,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import org.json.JSONObject;
+import org.json.JSONArray;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 public class AndroidInterface {
     private static final String TAG = "AndroidInterface";
@@ -76,7 +79,7 @@ public class AndroidInterface {
                 .addOnSuccessListener(v -> Log.d(TAG, "✅ audioEnabled actualizado: " + enabled))
                 .addOnFailureListener(e -> Log.e(TAG, "❌ Error actualizando audioEnabled", e));
     }
-    
+
     @JavascriptInterface
     public void updateSoundEnabled(boolean enabled) {
         Log.d(TAG, "🔊 updateSoundEnabled() llamado: " + enabled);
@@ -125,7 +128,7 @@ public class AndroidInterface {
                                 }
                                 progress.put("completedLevels", jsonArray);
                                 Log.d(TAG, "✅ completedLevels convertido a JSONArray: " + jsonArray.toString());
-                            } else {
+                    } else {
                                 progress.put("completedLevels", new org.json.JSONArray());
                                 Log.w(TAG, "⚠️ completedLevels no es una lista, usando array vacío");
                             }
@@ -161,7 +164,7 @@ public class AndroidInterface {
             Log.w(TAG, "⚠️ Usuario no logueado");
             return;
         }
-        
+
         try {
             JSONObject progress = new JSONObject(progressJson);
             
@@ -215,6 +218,152 @@ public class AndroidInterface {
                     
         } catch (Exception e) {
             Log.e(TAG, "❌ Error parseando progress JSON", e);
+        }
+    }
+
+    @JavascriptInterface
+    public void getRanking() {
+        Log.d(TAG, "🏆 getRanking() llamado desde JavaScript");
+        
+        // Obtener top 50 usuarios ordenados por cantidad de puzzles completados
+        db.collection("apps").document(APP_ID).collection("progress")
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    try {
+                        // Lista para almacenar los datos del ranking
+                        List<Map<String, Object>> rankingList = new ArrayList<>();
+                        
+                        // Iterar por todos los documentos de progreso
+                        for (DocumentSnapshot progressDoc : querySnapshot.getDocuments()) {
+                            String uid = progressDoc.getId();
+                            
+                            // Obtener completedLevels
+                            Object completedLevelsObj = progressDoc.get("completedLevels");
+                            int puzzlesCompleted = 0;
+                            if (completedLevelsObj instanceof List) {
+                                puzzlesCompleted = ((List<?>) completedLevelsObj).size();
+                            }
+                            
+                            // Solo incluir usuarios con al menos 1 puzzle completado
+                            if (puzzlesCompleted > 0) {
+                                // Crear objeto temporal para el ranking
+                                Map<String, Object> rankingEntry = new HashMap<>();
+                                rankingEntry.put("uid", uid);
+                                rankingEntry.put("puzzlesCompleted", puzzlesCompleted);
+                                rankingList.add(rankingEntry);
+                            }
+                        }
+                        
+                        // Ordenar por puzzles completados (descendente)
+                        rankingList.sort((a, b) -> {
+                            int puzzlesA = (int) a.get("puzzlesCompleted");
+                            int puzzlesB = (int) b.get("puzzlesCompleted");
+                            return Integer.compare(puzzlesB, puzzlesA);
+                        });
+                        
+                        // Limitar a top 50
+                        if (rankingList.size() > 50) {
+                            rankingList = rankingList.subList(0, 50);
+                        }
+                        
+                        // Ahora necesitamos obtener los nicks de los usuarios
+                        fetchNicksForRanking(rankingList);
+                        
+                    } catch (Exception e) {
+                        Log.e(TAG, "❌ Error procesando ranking", e);
+                        activity.evalJS("window.__onRankingLoaded && __onRankingLoaded('[]')");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "❌ Error obteniendo ranking de Firebase", e);
+                    activity.evalJS("window.__onRankingLoaded && __onRankingLoaded('[]')");
+                });
+    }
+    
+    private void fetchNicksForRanking(List<Map<String, Object>> rankingList) {
+        if (rankingList.isEmpty()) {
+            activity.evalJS("window.__onRankingLoaded && __onRankingLoaded('[]')");
+            return;
+        }
+        
+        // Usar un array del tamaño exacto para mantener el orden
+        final Map<String, Object>[] finalRanking = new Map[rankingList.size()];
+        final int[] pendingRequests = {rankingList.size()};
+        
+        // Obtener nick para cada usuario manteniendo el índice
+        for (int i = 0; i < rankingList.size(); i++) {
+            final int index = i; // Capturar el índice para el lambda
+            Map<String, Object> entry = rankingList.get(i);
+            String uid = (String) entry.get("uid");
+            int puzzlesCompleted = (int) entry.get("puzzlesCompleted");
+            
+            db.collection("apps").document(APP_ID).collection("users").document(uid).get()
+                    .addOnSuccessListener(userDoc -> {
+                        String nick = "Jugador";
+                        if (userDoc.exists() && userDoc.getString("nick") != null) {
+                            nick = userDoc.getString("nick");
+                        }
+                        
+                        Map<String, Object> finalEntry = new HashMap<>();
+                        finalEntry.put("nick", nick);
+                        finalEntry.put("puzzlesCompleted", puzzlesCompleted);
+                        
+                        // Guardar en la posición correcta
+                        finalRanking[index] = finalEntry;
+                        
+                        // Decrementar contador
+                        pendingRequests[0]--;
+                        
+                        // Si terminamos de obtener todos los nicks, enviar a JS
+                        if (pendingRequests[0] == 0) {
+                            // Convertir array a lista
+                            List<Map<String, Object>> rankingListOrdered = new ArrayList<>();
+                            for (Map<String, Object> item : finalRanking) {
+                                if (item != null) {
+                                    rankingListOrdered.add(item);
+                                }
+                            }
+                            sendRankingToJS(rankingListOrdered);
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e(TAG, "❌ Error obteniendo nick para uid: " + uid, e);
+                        
+                        // Agregar con nick por defecto en la posición correcta
+                        Map<String, Object> finalEntry = new HashMap<>();
+                        finalEntry.put("nick", "Jugador");
+                        finalEntry.put("puzzlesCompleted", puzzlesCompleted);
+                        finalRanking[index] = finalEntry;
+                        
+                        pendingRequests[0]--;
+                        if (pendingRequests[0] == 0) {
+                            List<Map<String, Object>> rankingListOrdered = new ArrayList<>();
+                            for (Map<String, Object> item : finalRanking) {
+                                if (item != null) {
+                                    rankingListOrdered.add(item);
+                                }
+                            }
+                            sendRankingToJS(rankingListOrdered);
+                }
+            });
+        }
+    }
+    
+    private void sendRankingToJS(List<Map<String, Object>> rankingList) {
+        try {
+            JSONArray rankingArray = new JSONArray();
+            for (Map<String, Object> entry : rankingList) {
+                JSONObject obj = new JSONObject();
+                obj.put("nick", entry.get("nick"));
+                obj.put("puzzlesCompleted", entry.get("puzzlesCompleted"));
+                rankingArray.put(obj);
+            }
+            
+            Log.d(TAG, "✅ Ranking generado: " + rankingArray.toString());
+            activity.evalJS("window.__onRankingLoaded && __onRankingLoaded(" + JSONObject.quote(rankingArray.toString()) + ")");
+        } catch (Exception e) {
+            Log.e(TAG, "❌ Error creando JSON del ranking", e);
+            activity.evalJS("window.__onRankingLoaded && __onRankingLoaded('[]')");
         }
     }
 }

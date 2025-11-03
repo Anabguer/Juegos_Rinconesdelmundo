@@ -31,6 +31,11 @@ import com.google.android.gms.tasks.Task;
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 public class GameActivity extends Activity {
     private static final String TAG = "AndroidInterface";
@@ -38,6 +43,7 @@ public class GameActivity extends Activity {
     private static final String APP_ID = "rinconesdelmundo";
     
     private WebView webView;
+    private AdView adView;
     private GameManager gameManager;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
@@ -49,6 +55,27 @@ public class GameActivity extends Activity {
         setContentView(R.layout.activity_game);
         
         enableImmersiveMode();
+        
+        // Inicializar AdMob
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                Log.d(TAG, "AdMob initialized");
+                // Configurar AdView después de inicializar AdMob
+                try {
+                    adView = findViewById(R.id.adView);
+                    if (adView != null) {
+                        AdRequest adRequest = new AdRequest.Builder().build();
+                        adView.loadAd(adRequest);
+                        Log.d(TAG, "AdView cargado correctamente");
+                    } else {
+                        Log.w(TAG, "AdView no encontrado en el layout");
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Error cargando AdView: " + e.getMessage(), e);
+                }
+            }
+        });
         
         // Inicializar Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -163,6 +190,43 @@ public class GameActivity extends Activity {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
             enableImmersiveMode();
+        }
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            if (adView != null) {
+                adView.resume();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error en onResume de AdView: " + e.getMessage());
+        }
+    }
+    
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try {
+            if (adView != null) {
+                adView.pause();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error en onPause de AdView: " + e.getMessage());
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            if (adView != null) {
+                adView.destroy();
+                adView = null;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error en onDestroy de AdView: " + e.getMessage());
         }
     }
 

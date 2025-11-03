@@ -24,6 +24,7 @@
             <button id="menu-shuffle" class="menu-btn" title="Mezclar Puzzle" style="display: none;">🔀</button>
             <button id="menu-hint" class="menu-btn" title="Pista" style="display: none;">💡</button>
             <button id="menu-preview" class="menu-btn" title="Vista Previa" style="display: none;">👁️</button>
+            <button id="menu-ranking" class="menu-btn" title="Ranking">🏆</button>
             <span id="menu-user-nick" class="menu-user-nick">👤 Invitado</span>
         </div>
     </div>
@@ -71,16 +72,6 @@
     <div id="worlds-screen" class="screen worlds-screen" style="display: none;">
         <div class="worlds-header">
             <h1>🌍 Mundos por Descubrir</h1>
-            <div class="worlds-stats">
-                <div class="stat">
-                    <span class="stat-icon">⏱️</span>
-                    <span class="stat-value" id="total-time">00:00</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-icon">🧩</span>
-                    <span class="stat-value" id="completed-puzzles">0</span>
-                </div>
-            </div>
         </div>
 
         <div class="worlds-grid" id="worlds-grid">
@@ -180,7 +171,6 @@
                         <button class="setting-toggle active" id="music-toggle" onclick="toggleMusic()">
                             Desactivar
                         </button>
-                        <input type="range" min="0" max="100" value="20" class="volume-slider" id="music-volume">
                     </div>
                     
                     <!-- Efectos de sonido -->
@@ -194,7 +184,6 @@
                         <button class="setting-toggle active" id="sound-toggle" onclick="toggleSoundEffects()">
                             Desactivar
                         </button>
-                        <input type="range" min="0" max="100" value="70" class="volume-slider" id="sound-volume">
                     </div>
                 </div>
                 
@@ -330,6 +319,77 @@
                 </ol>
                 <p class="info-note">Tu cuenta será eliminada en un plazo máximo de 48 horas.</p>
                 <button class="btn-primary-modal" onclick="closeDeleteAccountModal()">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Ranking -->
+    <div id="ranking-modal" class="modal-overlay hidden">
+        <div class="modal-backdrop" onclick="closeRankingModal()"></div>
+        
+        <div class="ranking-modal-box">
+            <!-- Header -->
+            <div class="ranking-header">
+                <div class="header-left">
+                    <div class="header-icon trophy">
+                        🏆
+                    </div>
+                    <h2>Ranking Global</h2>
+                </div>
+                <button class="btn-close" onclick="closeRankingModal()">✕</button>
+            </div>
+            
+            <!-- Content (3 estados posibles) -->
+            <div class="ranking-content">
+                
+                <!-- ESTADO 1: CARGANDO -->
+                <div id="ranking-loading" class="ranking-state">
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                
+                <!-- ESTADO 2: ERROR -->
+                <div id="ranking-error" class="ranking-state hidden">
+                    <p class="error-message" id="error-text">Error al cargar el ranking</p>
+                    <button class="btn-retry" onclick="loadRanking()">
+                        Reintentar
+                    </button>
+                </div>
+                
+                <!-- ESTADO 3: ÉXITO - LISTA DE JUGADORES -->
+                <div id="ranking-success" class="ranking-state hidden">
+                    <!-- Icono central -->
+                    <div class="ranking-trophy-badge">
+                        <div class="trophy-badge">
+                            🏆
+                        </div>
+                    </div>
+                    
+                    <h3 class="ranking-title">Top Jugadores</h3>
+                    <p class="ranking-subtitle">Usuarios con más puzzles completados</p>
+                    
+                    <!-- Tabla de ranking -->
+                    <div class="ranking-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pos</th>
+                                    <th>Jugador</th>
+                                    <th>Puzzles</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ranking-list">
+                                <!-- Datos desde Firebase -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="ranking-footer">
+                <p>Ranking actualizado en tiempo real</p>
             </div>
         </div>
     </div>
@@ -867,6 +927,102 @@
     
     function closeDeleteAccountModal() {
         document.getElementById('deleteAccountModal').classList.add('hidden');
+    }
+    
+    // ========== FUNCIONES DE RANKING ==========
+    function openRankingModal() {
+        document.getElementById('ranking-modal').classList.remove('hidden');
+        
+        // Reproducir sonido de ranking si los efectos están activados
+        if (window.game && window.game.state && window.game.state.soundEnabled) {
+            if (window.game.audio && window.game.audio.complete) {
+                window.game.audio.complete.currentTime = 0;
+                window.game.audio.complete.play().catch(e => {
+                    console.warn('No se pudo reproducir sonido de ranking:', e);
+                });
+            }
+        }
+        
+        loadRanking();
+    }
+
+    function closeRankingModal() {
+        document.getElementById('ranking-modal').classList.add('hidden');
+    }
+
+    async function loadRanking() {
+        // Mostrar estado de carga
+        showRankingState('loading');
+        
+        try {
+            if (window.AndroidInterface && window.AndroidInterface.getRanking) {
+                window.AndroidInterface.getRanking();
+            } else {
+                // Si no hay AndroidInterface, mostrar error
+                showRankingState('error', 'No se puede cargar el ranking en este momento');
+            }
+        } catch (error) {
+            console.error('Error cargando ranking:', error);
+            showRankingState('error', 'Error al cargar el ranking. Intenta de nuevo.');
+        }
+    }
+
+    window.__onRankingLoaded = function(rankingDataStr) {
+        console.log('📊 Ranking recibido:', rankingDataStr);
+        
+        try {
+            const rankingData = JSON.parse(rankingDataStr);
+            renderRankingTable(rankingData);
+            showRankingState('success');
+        } catch (error) {
+            console.error('Error parseando ranking:', error);
+            showRankingState('error', 'Error procesando datos del ranking');
+        }
+    };
+
+    function showRankingState(state, errorMsg = '') {
+        document.getElementById('ranking-loading').classList.add('hidden');
+        document.getElementById('ranking-error').classList.add('hidden');
+        document.getElementById('ranking-success').classList.add('hidden');
+        
+        if (state === 'loading') {
+            document.getElementById('ranking-loading').classList.remove('hidden');
+        } else if (state === 'error') {
+            document.getElementById('error-text').textContent = errorMsg;
+            document.getElementById('ranking-error').classList.remove('hidden');
+        } else if (state === 'success') {
+            document.getElementById('ranking-success').classList.remove('hidden');
+        }
+    }
+
+    function renderRankingTable(data) {
+        const tbody = document.getElementById('ranking-list');
+        tbody.innerHTML = '';
+        
+        data.forEach((player, index) => {
+            const position = index + 1;
+            const tr = document.createElement('tr');
+            
+            // Agregar clase especial para top 3
+            if (position <= 3) {
+                tr.className = `rank-${position}`;
+            }
+            
+            // Posición
+            let positionDisplay;
+            if (position === 1) positionDisplay = '🥇';
+            else if (position === 2) positionDisplay = '🥈';
+            else if (position === 3) positionDisplay = '🥉';
+            else positionDisplay = position;
+            
+            tr.innerHTML = `
+                <td class="position">${positionDisplay}</td>
+                <td class="player">${player.nick || 'Jugador'}</td>
+                <td class="score">${player.puzzlesCompleted || 0}</td>
+            `;
+            
+            tbody.appendChild(tr);
+        });
     }
     </script>
 </body>

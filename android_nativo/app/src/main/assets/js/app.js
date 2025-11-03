@@ -837,6 +837,7 @@ class RinconesDelMundo {
         const hintBtn = document.getElementById('menu-hint');
         const previewBtn = document.getElementById('menu-preview');
         const levelsBtn = document.getElementById('menu-levels');
+        const mapBtn = document.getElementById('menu-map');
         
         if (shuffleBtn) {
             shuffleBtn.style.display = screenName === 'puzzle' ? 'flex' : 'none';
@@ -850,8 +851,26 @@ class RinconesDelMundo {
             previewBtn.style.display = screenName === 'puzzle' ? 'flex' : 'none';
         }
         
+        // Botón de niveles: solo en pantalla de puzzle (no en levels)
         if (levelsBtn) {
-            levelsBtn.style.display = (screenName === 'puzzle' || screenName === 'levels') ? 'flex' : 'none';
+            levelsBtn.style.display = screenName === 'puzzle' ? 'flex' : 'none';
+        }
+        
+        // Botón de mapa: ocultar cuando estás en la pantalla de mundos
+        if (mapBtn) {
+            mapBtn.style.display = screenName === 'worlds' ? 'none' : 'flex';
+        }
+        
+        // Ocultar nick del usuario en la pantalla de puzzle
+        const menuUserNick = document.getElementById('menu-user-nick');
+        if (menuUserNick) {
+            menuUserNick.style.display = screenName === 'puzzle' ? 'none' : 'block';
+        }
+        
+        // Ocultar ranking en la pantalla de puzzle
+        const rankingBtn = document.getElementById('menu-ranking');
+        if (rankingBtn) {
+            rankingBtn.style.display = screenName === 'puzzle' ? 'none' : 'flex';
         }
         
         // Aplicar colores de mundo si es necesario
@@ -961,6 +980,16 @@ class RinconesDelMundo {
         if (previewBtn) {
             previewBtn.addEventListener('click', () => {
                 this.showPuzzlePreview();
+            });
+        }
+
+        // Botón de ranking
+        const rankingBtn = document.getElementById('menu-ranking');
+        if (rankingBtn) {
+            rankingBtn.addEventListener('click', () => {
+                if (typeof openRankingModal === 'function') {
+                    openRankingModal();
+                }
             });
         }
     }
@@ -1093,14 +1122,17 @@ class RinconesDelMundo {
                 puzzleScreen.classList.remove('puzzle-completed');
             }
             
+            // Mostrar botones de pista y vista previa
+            const hintBtn = document.getElementById('menu-hint');
+            const previewBtn = document.getElementById('menu-preview');
+            if (hintBtn) hintBtn.style.display = 'flex';
+            if (previewBtn) previewBtn.style.display = 'flex';
+            
             // Volver a imagen cortada y re-renderizar
             this.updatePuzzleToShuffled();
             
             // Reiniciar temporizador
             this.startTimer();
-            
-            // Mostrar pista de nuevo (ya está en la barra de menú)
-            // No es necesario hacer nada aquí ya que el botón está siempre disponible
         } else {
             // Si no está completado, mezclar normalmente
             this.shuffleArray(this.puzzleOrder);
@@ -1197,16 +1229,30 @@ class RinconesDelMundo {
 
     showPuzzleScreen(world, level) {
         console.log(`Cambiando a mundo ${world}, nivel ${level}`);
-        this.state.currentWorld = world;
-        this.state.currentLevel = level;
-        console.log(`Estado actualizado: mundo ${this.state.currentWorld}, nivel ${this.state.currentLevel}`);
-        this.showScreen('puzzle');
         
         // Verificar que los datos estén cargados
         if (!this.worldsData || !this.worldsData[world]) {
             console.error('Datos del mundo no cargados:', world);
             return;
         }
+        
+        // Verificar que el mundo tenga puzzles
+        if (!this.worldsData[world].puzzles || this.worldsData[world].puzzles.length === 0) {
+            console.warn('Mundo sin puzzles configurados:', world);
+            alert('🌍 Estamos explorando nuevos lugares increíbles para ti.\n\n¡Muy pronto nuevos lugares!');
+            return;
+        }
+        
+        // Verificar que el nivel solicitado existe
+        if (level > this.worldsData[world].puzzles.length) {
+            console.error('Nivel no existe en este mundo:', world, level);
+            return;
+        }
+        
+        this.state.currentWorld = world;
+        this.state.currentLevel = level;
+        console.log(`Estado actualizado: mundo ${this.state.currentWorld}, nivel ${this.state.currentLevel}`);
+        this.showScreen('puzzle');
         
         this.startPuzzle();
         this.setupPuzzleEvents();
@@ -1325,9 +1371,46 @@ class RinconesDelMundo {
         
         if (!levelsGrid) return;
         
+        // Resetear estilos inline para que no rompan el grid
+        levelsGrid.style.display = '';
+        levelsGrid.style.alignItems = '';
+        levelsGrid.style.justifyContent = '';
+        levelsGrid.style.minHeight = '';
+        
         const worldData = this.worldsData[this.state.currentWorld];
         if (!worldData) {
             console.error('Datos del mundo no encontrados:', this.state.currentWorld);
+            return;
+        }
+        
+        // Verificar que el mundo tenga puzzles
+        if (!worldData.puzzles || worldData.puzzles.length === 0) {
+            console.warn('Mundo sin puzzles configurados:', this.state.currentWorld);
+            levelsGrid.style.display = 'flex';
+            levelsGrid.style.alignItems = 'center';
+            levelsGrid.style.justifyContent = 'center';
+            levelsGrid.style.minHeight = 'calc(100vh - 200px)';
+            levelsGrid.innerHTML = `
+                <style>
+                    @keyframes sparkle {
+                        0%, 100% { opacity: 1; transform: scale(1); }
+                        50% { opacity: 0.3; transform: scale(0.8); }
+                    }
+                    .sparkle-emoji {
+                        display: inline-block;
+                        animation: sparkle 1.5s ease-in-out infinite;
+                    }
+                </style>
+                <div style="text-align: center; color: #333; padding: 40px 30px; font-size: 16px; line-height: 1.6; background: rgba(255, 255, 255, 0.95); border-radius: 20px; max-width: 400px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);">
+                    <div style="font-size: 64px; margin-bottom: 24px;">🌍<span class="sparkle-emoji">✨</span></div>
+                    <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; color: #1e293b;">Estamos explorando nuevos lugares</h3>
+                    <p style="font-size: 16px; color: #64748b; margin-bottom: 10px;">Nuestro equipo está seleccionando cuidadosamente los rincones más increíbles del mundo para ti.</p>
+                    <p style="font-size: 15px; color: #94a3b8; font-style: italic; margin-top: 24px;">¡Muy pronto nuevos lugares! 🧩</p>
+                </div>
+            `;
+            if (worldTitle) {
+                worldTitle.textContent = `${worldData.emoji} ${worldData.name}`;
+            }
             return;
         }
         
@@ -1431,6 +1514,17 @@ class RinconesDelMundo {
             } else {
                 puzzleScreen.classList.remove('puzzle-completed');
             }
+        }
+        
+        // Ocultar botones de pista y vista previa si el puzzle está completado
+        const hintBtn = document.getElementById('menu-hint');
+        const previewBtn = document.getElementById('menu-preview');
+        if (isCompleted) {
+            if (hintBtn) hintBtn.style.display = 'none';
+            if (previewBtn) previewBtn.style.display = 'none';
+        } else {
+            if (hintBtn) hintBtn.style.display = 'flex';
+            if (previewBtn) previewBtn.style.display = 'flex';
         }
         
         // Iniciar temporizador solo si no está completado
@@ -1938,6 +2032,12 @@ class RinconesDelMundo {
         if (puzzleScreen) {
             puzzleScreen.classList.add('puzzle-completed');
         }
+        
+        // Ocultar botones de pista y vista previa cuando se completa
+        const hintBtn = document.getElementById('menu-hint');
+        const previewBtn = document.getElementById('menu-preview');
+        if (hintBtn) hintBtn.style.display = 'none';
+        if (previewBtn) previewBtn.style.display = 'none';
         
         // Actualizar tiempo total
         this.state.totalTime += this.state.puzzleTime;
