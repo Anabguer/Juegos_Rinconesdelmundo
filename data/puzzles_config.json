@@ -1,0 +1,1741 @@
+{
+    "worlds": {
+        "mundo1": {
+            "id": "mundo1",
+            "name": "Sereno",
+            "emoji": "🌍",
+            "colorPalette": {
+                "background": "#E8F4FD",
+                "cardBorder": "#B8D4E3",
+                "cardBack": "#8BB3C7",
+                "primary": "#4A90E2",
+                "secondary": "#F5F5DC",
+                "accent": "#D3D3D3"
+            },
+            "gridSize": "3x3",
+            "puzzles": [
+                {
+                    "id": "mundo1m01p01",
+                    "name": "Templo Daigo-ji",
+                    "country": "Japón",
+                    "image": "m01p01.png",
+                    "curiosity": "Templo Daigo-ji, Japón — Fundado en 874, su jardín cambia de color cinco veces al año.",
+                    "pieces": 4,
+                    "magnetStrength": 0.8,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo1m01p02",
+                    "name": "Fiordo de Geiranger",
+                    "country": "Noruega",
+                    "image": "m01p02.png",
+                    "curiosity": "Fiordo de Geiranger, Noruega — Uno de los fiordos más profundos de Europa.",
+                    "pieces": 6,
+                    "magnetStrength": 0.7,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo1m01p03",
+                    "name": "Playa de Navagio",
+                    "country": "Grecia",
+                    "image": "m01p03.png",
+                    "curiosity": "Playa de Navagio, Grecia — Famosa por su barco encallado y aguas turquesa.",
+                    "pieces": 9,
+                    "magnetStrength": 0.6,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo1m01p04",
+                    "name": "Lago Moraine",
+                    "country": "Canadá",
+                    "image": "m01p04.png",
+                    "curiosity": "Lago Moraine, Canadá — Su color azul viene del polvo glaciar suspendido.",
+                    "pieces": 12,
+                    "magnetStrength": 0.5,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo1m01p05",
+                    "name": "Jardines de Kioto",
+                    "country": "Japón",
+                    "image": "m01p05.png",
+                    "curiosity": "Jardines de Kioto, Japón — Inspirados en la meditación Zen.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo1m01p06",
+                    "name": "Montañas Dolomitas",
+                    "country": "Italia",
+                    "image": "m01p06.png",
+                    "curiosity": "Montañas Dolomitas, Italia — Patrimonio natural de la UNESCO.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo1m01p07",
+                    "name": "Costa Amalfitana",
+                    "country": "Italia",
+                    "image": "m01p07.png",
+                    "curiosity": "Costa Amalfitana, Italia — Casas de colores colgadas sobre el mar.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo1m01p08",
+                    "name": "Lago Bled",
+                    "country": "Eslovenia",
+                    "image": "m01p08.png",
+                    "curiosity": "Lago Bled, Eslovenia — Su isla alberga una iglesia del siglo XV.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo1m01p09",
+                    "name": "Cataratas de Plitvice",
+                    "country": "Croacia",
+                    "image": "m01p09.png",
+                    "curiosity": "Cataratas de Plitvice, Croacia — Dieciséis lagos conectados por cascadas.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo1m01p10",
+                    "name": "Valle de Lauterbrunnen",
+                    "country": "Suiza",
+                    "image": "m01p10.png",
+                    "curiosity": "Valle de Lauterbrunnen, Suiza — Inspiró los paisajes de El Señor de los Anillos.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo1m01p11",
+                    "name": "Cabo de Formentor",
+                    "country": "España",
+                    "image": "m01p11.png",
+                    "curiosity": "Cabo de Formentor, España — El faro más fotografiado de Mallorca.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo1m01p12",
+                    "name": "Lago Louise",
+                    "country": "Canadá",
+                    "image": "m01p12.png",
+                    "curiosity": "Lago Louise, Canadá — El reflejo perfecto de las Montañas Rocosas.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo1m01p13",
+                    "name": "Isla de Skye",
+                    "country": "Escocia",
+                    "image": "m01p13.png",
+                    "curiosity": "Isla de Skye, Escocia — Sus colinas parecen esculpidas por el viento.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo1m01p14",
+                    "name": "Río Li",
+                    "country": "China",
+                    "image": "m01p14.png",
+                    "curiosity": "Río Li, China — Escenario de paisajes en billetes chinos.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo1m01p15",
+                    "name": "Monte Fuji",
+                    "country": "Japón",
+                    "image": "m01p15.png",
+                    "curiosity": "Monte Fuji, Japón — Visible desde Tokio en días despejados.",
+                    "pieces": 25,
+                    "magnetStrength": 0,
+                    "gridSize": "5x5"
+                }
+            ]
+        },
+        "mundo2": {
+            "id": "mundo2",
+            "name": "Vibrante",
+            "emoji": "🌺",
+            "colorPalette": {
+                "background": "#FFF5F5",
+                "cardBorder": "#FFB3BA",
+                "cardBack": "#FF8A95",
+                "primary": "#FF6B6B",
+                "secondary": "#FFE0E0",
+                "accent": "#FFCCCB"
+            },
+            "gridSize": "3x3",
+            "puzzles": [
+                {
+                    "id": "mundo2m02p01",
+                    "name": "Bosque de Hallerbos",
+                    "country": "Bélgica",
+                    "image": "m02p01.png",
+                    "curiosity": "Bosque de Hallerbos, Bélgica — Cada primavera se cubre de campanillas azules.",
+                    "pieces": 4,
+                    "magnetStrength": 0.8,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo2m02p02",
+                    "name": "Lago Baikal",
+                    "country": "Rusia",
+                    "image": "m02p02.png",
+                    "curiosity": "Lago Baikal, Rusia — El lago más profundo del mundo.",
+                    "pieces": 6,
+                    "magnetStrength": 0.7,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo2m02p03",
+                    "name": "Montañas Huangshan",
+                    "country": "China",
+                    "image": "m02p03.png",
+                    "curiosity": "Montañas Huangshan, China — Su niebla inspiró pinturas antiguas.",
+                    "pieces": 9,
+                    "magnetStrength": 0.6,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo2m02p04",
+                    "name": "Selva Valdiviana",
+                    "country": "Chile",
+                    "image": "m02p04.png",
+                    "curiosity": "Selva Valdiviana, Chile — Hogar de especies prehistóricas.",
+                    "pieces": 12,
+                    "magnetStrength": 0.5,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo2m02p05",
+                    "name": "Fiordo Doubtful Sound",
+                    "country": "Nueva Zelanda",
+                    "image": "m02p05.png",
+                    "curiosity": "Fiordo Doubtful Sound, Nueva Zelanda — El sonido más silencioso del planeta.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo2m02p06",
+                    "name": "Isla de Skellig Michael",
+                    "country": "Irlanda",
+                    "image": "m02p06.png",
+                    "curiosity": "Isla de Skellig Michael, Irlanda — Antiguo monasterio sobre el Atlántico.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo2m02p07",
+                    "name": "Caminito del Rey",
+                    "country": "España",
+                    "image": "m02p07.png",
+                    "curiosity": "Caminito del Rey, España — Antiguamente, uno de los senderos más peligrosos.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo2m02p08",
+                    "name": "Lago Bohinj",
+                    "country": "Eslovenia",
+                    "image": "m02p08.png",
+                    "curiosity": "Lago Bohinj, Eslovenia — Envuelto en bruma la mayor parte del año.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo2m02p09",
+                    "name": "Bosque de Redwood",
+                    "country": "EE. UU.",
+                    "image": "m02p09.png",
+                    "curiosity": "Bosque de Redwood, EE. UU. — Árboles que superan los 100 metros.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo2m02p10",
+                    "name": "Lago di Como",
+                    "country": "Italia",
+                    "image": "m02p10.png",
+                    "curiosity": "Lago di Como, Italia — Refugio de artistas y poetas.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo2m02p11",
+                    "name": "Rila Lakes",
+                    "country": "Bulgaria",
+                    "image": "m02p11.png",
+                    "curiosity": "Rila Lakes, Bulgaria — Siete lagos glaciares, cada uno con su leyenda.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo2m02p12",
+                    "name": "Fiordo Milford Sound",
+                    "country": "Nueva Zelanda",
+                    "image": "m02p12.png",
+                    "curiosity": "Fiordo Milford Sound, Nueva Zelanda — Descrito por Kipling como la octava maravilla.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo2m02p13",
+                    "name": "Bosques del Cáucaso",
+                    "country": "Georgia",
+                    "image": "m02p13.png",
+                    "curiosity": "Bosques del Cáucaso, Georgia — Entre Asia y Europa, casi mágicos.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo2m02p14",
+                    "name": "Parque Torres del Paine",
+                    "country": "Chile",
+                    "image": "m02p14.png",
+                    "curiosity": "Parque Torres del Paine, Chile — Famoso por sus cuernos de granito.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo2m02p15",
+                    "name": "Lago Misurina",
+                    "country": "Italia",
+                    "image": "m02p15.png",
+                    "curiosity": "Lago Misurina, Italia — Su aire ayuda a tratar el asma.",
+                    "pieces": 25,
+                    "magnetStrength": 0,
+                    "gridSize": "5x5"
+                }
+            ]
+        },
+        "mundo3": {
+            "id": "mundo3",
+            "name": "Místico",
+            "emoji": "🌙",
+            "colorPalette": {
+                "background": "#F0F0FF",
+                "cardBorder": "#C7C7FF",
+                "cardBack": "#9B9BFF",
+                "primary": "#6B6BFF",
+                "secondary": "#E0E0FF",
+                "accent": "#CCCCFF"
+            },
+            "gridSize": "3x3",
+            "puzzles": [
+                {
+                    "id": "mundo3m03p01",
+                    "name": "Campos de Lavanda",
+                    "country": "Provenza (Francia)",
+                    "image": "m03p01.png",
+                    "curiosity": "Campos de Lavanda, Provenza (Francia) — Durante julio, el aire huele a miel y romero.",
+                    "pieces": 4,
+                    "magnetStrength": 0.8,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo3m03p02",
+                    "name": "Islas Maldivas",
+                    "country": "",
+                    "image": "m03p02.png",
+                    "curiosity": "Islas Maldivas — Las playas parecen flotar, y la arena no quema por su origen coralino.",
+                    "pieces": 6,
+                    "magnetStrength": 0.7,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo3m03p03",
+                    "name": "Desierto del Sahara",
+                    "country": "Marruecos",
+                    "image": "m03p03.png",
+                    "curiosity": "Desierto del Sahara, Marruecos — Las dunas cambian de forma cada noche por el viento.",
+                    "pieces": 9,
+                    "magnetStrength": 0.6,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo3m03p04",
+                    "name": "Santorini",
+                    "country": "Grecia",
+                    "image": "m03p04.png",
+                    "curiosity": "Santorini, Grecia — Las casas se encalan cada primavera para reflejar el sol.",
+                    "pieces": 12,
+                    "magnetStrength": 0.5,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo3m03p05",
+                    "name": "Campos de Girasoles",
+                    "country": "Castilla (España)",
+                    "image": "m03p05.png",
+                    "curiosity": "Campos de Girasoles, Castilla (España) — Los girasoles giran siguiendo la luz del sol.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo3m03p06",
+                    "name": "Isla de Holbox",
+                    "country": "México",
+                    "image": "m03p06.png",
+                    "curiosity": "Isla de Holbox, México — El mar brilla por la bioluminiscencia de pequeños organismos.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo3m03p07",
+                    "name": "Monte Table",
+                    "country": "Sudáfrica",
+                    "image": "m03p07.png",
+                    "curiosity": "Monte Table, Sudáfrica — Una nube plana llamada “mantel” cubre su cima al atardecer.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo3m03p08",
+                    "name": "Campos de Té",
+                    "country": "Sri Lanka",
+                    "image": "m03p08.png",
+                    "curiosity": "Campos de Té, Sri Lanka — Cada hoja se recoge a mano antes de la salida del sol.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo3m03p09",
+                    "name": "Costa de Amalfi",
+                    "country": "Italia",
+                    "image": "m03p09.png",
+                    "curiosity": "Costa de Amalfi, Italia — Los limoneros crecen entre las casas junto al mar.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo3m03p10",
+                    "name": "Parque Nacional de Yellowstone",
+                    "country": "EE. UU.",
+                    "image": "m03p10.png",
+                    "curiosity": "Parque Nacional de Yellowstone, EE. UU. — Los géiseres laten con el corazón de la Tierra.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo3m03p11",
+                    "name": "Campos de Trigo",
+                    "country": "Ucrania",
+                    "image": "m03p11.png",
+                    "curiosity": "Campos de Trigo, Ucrania — Los colores de su bandera vienen del cielo y del trigo.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo3m03p12",
+                    "name": "Gran Barrera de Coral",
+                    "country": "Australia",
+                    "image": "m03p12.png",
+                    "curiosity": "Gran Barrera de Coral, Australia — Visible desde el espacio, hogar de miles de especies marinas.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo3m03p13",
+                    "name": "Lago Titicaca",
+                    "country": "Perú-Bolivia",
+                    "image": "m03p13.png",
+                    "curiosity": "Lago Titicaca, Perú-Bolivia — Es el lago navegable más alto del mundo.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo3m03p14",
+                    "name": "Machu Picchu",
+                    "country": "Perú",
+                    "image": "m03p14.png",
+                    "curiosity": "Machu Picchu, Perú — Durante siglos, estuvo escondido bajo la selva.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo3m03p15",
+                    "name": "Cabo de Gata",
+                    "country": "España",
+                    "image": "m03p15.png",
+                    "curiosity": "Cabo de Gata, España — La zona más soleada de Europa, con playas volcánicas.",
+                    "pieces": 25,
+                    "magnetStrength": 0,
+                    "gridSize": "5x5"
+                }
+            ]
+        },
+        "mundo4": {
+            "id": "mundo4",
+            "name": "Tropical",
+            "emoji": "🌴",
+            "colorPalette": {
+                "background": "#F0FFF0",
+                "cardBorder": "#B3FFB3",
+                "cardBack": "#80FF80",
+                "primary": "#4DFF4D",
+                "secondary": "#E0FFE0",
+                "accent": "#CCFFCC"
+            },
+            "gridSize": "3x3",
+            "puzzles": [
+                {
+                    "id": "mundo4m04p01",
+                    "name": "Toledo",
+                    "country": "España",
+                    "image": "m04p01.png",
+                    "curiosity": "Toledo, España — Sus calles siguen el trazado romano original.",
+                    "pieces": 4,
+                    "magnetStrength": 0.8,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo4m04p02",
+                    "name": "Fez",
+                    "country": "Marruecos",
+                    "image": "m04p02.png",
+                    "curiosity": "Fez, Marruecos — Su medina tiene más de 9.000 callejones.",
+                    "pieces": 6,
+                    "magnetStrength": 0.7,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo4m04p03",
+                    "name": "Venecia",
+                    "country": "Italia",
+                    "image": "m04p03.png",
+                    "curiosity": "Venecia, Italia — Las casas se hunden lentamente en la laguna.",
+                    "pieces": 9,
+                    "magnetStrength": 0.6,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo4m04p04",
+                    "name": "Oia",
+                    "country": "Santorini (Grecia)",
+                    "image": "m04p04.png",
+                    "curiosity": "Oia, Santorini (Grecia) — Algunos tejados aún conservan tejas del siglo XIX.",
+                    "pieces": 12,
+                    "magnetStrength": 0.5,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo4m04p05",
+                    "name": "Dubrovnik",
+                    "country": "Croacia",
+                    "image": "m04p05.png",
+                    "curiosity": "Dubrovnik, Croacia — Su muralla ha resistido más de 20 guerras.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo4m04p06",
+                    "name": "Praga",
+                    "country": "República Checa",
+                    "image": "m04p06.png",
+                    "curiosity": "Praga, República Checa — Su reloj astronómico lleva marcando el tiempo desde 1410.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo4m04p07",
+                    "name": "Florencia",
+                    "country": "Italia",
+                    "image": "m04p07.png",
+                    "curiosity": "Florencia, Italia — El Duomo tardó casi 150 años en completarse.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo4m04p08",
+                    "name": "Cartagena de Indias",
+                    "country": "Colombia",
+                    "image": "m04p08.png",
+                    "curiosity": "Cartagena de Indias, Colombia — Las fachadas coloridas datan de la época colonial.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo4m04p09",
+                    "name": "Petra",
+                    "country": "Jordania",
+                    "image": "m04p09.png",
+                    "curiosity": "Petra, Jordania — Tallada en roca rosa hace más de 2.000 años.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo4m04p10",
+                    "name": "Kyoto",
+                    "country": "Japón",
+                    "image": "m04p10.png",
+                    "curiosity": "Kyoto, Japón — En primavera, los templos se llenan de cerezos centenarios.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo4m04p11",
+                    "name": "Cusco",
+                    "country": "Perú",
+                    "image": "m04p11.png",
+                    "curiosity": "Cusco, Perú — Su trazado urbano aún sigue el diseño inca original.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo4m04p12",
+                    "name": "Sevilla",
+                    "country": "España",
+                    "image": "m04p12.png",
+                    "curiosity": "Sevilla, España — La Giralda fue primero un minarete.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo4m04p13",
+                    "name": "Estambul",
+                    "country": "Turquía",
+                    "image": "m04p13.png",
+                    "curiosity": "Estambul, Turquía — Une dos continentes, Asia y Europa.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo4m04p14",
+                    "name": "Lisboa",
+                    "country": "Portugal",
+                    "image": "m04p14.png",
+                    "curiosity": "Lisboa, Portugal — Sus tranvías aún recorren rutas centenarias.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo4m04p15",
+                    "name": "Marrakech",
+                    "country": "Marruecos",
+                    "image": "m04p15.png",
+                    "curiosity": "Marrakech, Marruecos — En la plaza Jemaa el-Fna, las historias se cuentan desde hace siglos.",
+                    "pieces": 25,
+                    "magnetStrength": 0,
+                    "gridSize": "5x5"
+                }
+            ]
+        },
+        "mundo5": {
+            "id": "mundo5",
+            "name": "Desértico",
+            "emoji": "🏜️",
+            "colorPalette": {
+                "background": "#FFF8DC",
+                "cardBorder": "#FFE4B5",
+                "cardBack": "#FFD700",
+                "primary": "#FFA500",
+                "secondary": "#FFFACD",
+                "accent": "#F0E68C"
+            },
+            "gridSize": "3x3",
+            "puzzles": [
+                {
+                    "id": "mundo5m05p01",
+                    "name": "Río Amazonas",
+                    "country": "Brasil",
+                    "image": "m05p01.png",
+                    "curiosity": "Río Amazonas, Brasil — Contiene una quinta parte del agua dulce del planeta.",
+                    "pieces": 4,
+                    "magnetStrength": 0.8,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo5m05p02",
+                    "name": "Lago Inle",
+                    "country": "Myanmar",
+                    "image": "m05p02.png",
+                    "curiosity": "Lago Inle, Myanmar — Los pescadores reman con una pierna para mantener el equilibrio.",
+                    "pieces": 6,
+                    "magnetStrength": 0.7,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo5m05p03",
+                    "name": "Cataratas del Iguazú",
+                    "country": "Argentina-Brasil",
+                    "image": "m05p03.png",
+                    "curiosity": "Cataratas del Iguazú, Argentina-Brasil — Tienen más de 250 saltos de agua.",
+                    "pieces": 9,
+                    "magnetStrength": 0.6,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo5m05p04",
+                    "name": "Delta del Okavango",
+                    "country": "Botsuana",
+                    "image": "m05p04.png",
+                    "curiosity": "Delta del Okavango, Botsuana — Un río que desaparece en el desierto.",
+                    "pieces": 12,
+                    "magnetStrength": 0.5,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo5m05p05",
+                    "name": "Lago Ba Be",
+                    "country": "Vietnam",
+                    "image": "m05p05.png",
+                    "curiosity": "Lago Ba Be, Vietnam — El mayor lago natural del norte del país.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo5m05p06",
+                    "name": "Río Nilo",
+                    "country": "Egipto",
+                    "image": "m05p06.png",
+                    "curiosity": "Río Nilo, Egipto — Su crecida anual daba vida al antiguo Egipto.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo5m05p07",
+                    "name": "Lago Titisee",
+                    "country": "Alemania",
+                    "image": "m05p07.png",
+                    "curiosity": "Lago Titisee, Alemania — Rodeado de bosques negros que inspiran leyendas.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo5m05p08",
+                    "name": "Río Mekong",
+                    "country": "Laos",
+                    "image": "m05p08.png",
+                    "curiosity": "Río Mekong, Laos — Alimenta a millones de personas en su recorrido.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo5m05p09",
+                    "name": "Lago Malawi",
+                    "country": "África",
+                    "image": "m05p09.png",
+                    "curiosity": "Lago Malawi, África — Tiene más especies de peces que cualquier otro lago.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo5m05p10",
+                    "name": "Río Zambeze",
+                    "country": "Zambia",
+                    "image": "m05p10.png",
+                    "curiosity": "Río Zambeze, Zambia — Hogar de hipopótamos y cocodrilos.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo5m05p11",
+                    "name": "Lago Titicaca",
+                    "country": "Perú-Bolivia",
+                    "image": "m05p11.png",
+                    "curiosity": "Lago Titicaca, Perú-Bolivia — Sus islas flotantes están hechas de totora.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo5m05p12",
+                    "name": "Río Ganges",
+                    "country": "India",
+                    "image": "m05p12.png",
+                    "curiosity": "Río Ganges, India — Considerado sagrado por millones de personas.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo5m05p13",
+                    "name": "Lago Tanganyika",
+                    "country": "África",
+                    "image": "m05p13.png",
+                    "curiosity": "Lago Tanganyika, África — Uno de los lagos más profundos del mundo.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo5m05p14",
+                    "name": "Río Hudson",
+                    "country": "EE. UU.",
+                    "image": "m05p14.png",
+                    "curiosity": "Río Hudson, EE. UU. — Inspiró a la escuela artística del siglo XIX.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo5m05p15",
+                    "name": "Lago Baikal",
+                    "country": "Rusia",
+                    "image": "m05p15.png",
+                    "curiosity": "Lago Baikal, Rusia — En invierno, su hielo canta al romperse.",
+                    "pieces": 25,
+                    "magnetStrength": 0,
+                    "gridSize": "5x5"
+                }
+            ]
+        },
+        "mundo6": {
+            "id": "mundo6",
+            "name": "Polar",
+            "emoji": "❄️",
+            "colorPalette": {
+                "background": "#F0F8FF",
+                "cardBorder": "#B0E0E6",
+                "cardBack": "#87CEEB",
+                "primary": "#4682B4",
+                "secondary": "#E0F6FF",
+                "accent": "#B0E0E6"
+            },
+            "gridSize": "3x3",
+            "puzzles": [
+                {
+                    "id": "mundo6m06p01",
+                    "name": "Monte Etna",
+                    "country": "Italia",
+                    "image": "m06p01.png",
+                    "curiosity": "Monte Etna, Italia — Uno de los volcanes más activos del mundo, pero su suelo es fértil.",
+                    "pieces": 4,
+                    "magnetStrength": 0.8,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo6m06p02",
+                    "name": "Desierto de Atacama",
+                    "country": "Chile",
+                    "image": "m06p02.png",
+                    "curiosity": "Desierto de Atacama, Chile — El lugar más seco del planeta; algunos telescopios observan desde allí el universo.",
+                    "pieces": 6,
+                    "magnetStrength": 0.7,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo6m06p03",
+                    "name": "Monte Bromo",
+                    "country": "Indonesia",
+                    "image": "m06p03.png",
+                    "curiosity": "Monte Bromo, Indonesia — Los lugareños ofrecen flores y arroz a los dioses del volcán.",
+                    "pieces": 9,
+                    "magnetStrength": 0.6,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo6m06p04",
+                    "name": "Isla de Lanzarote",
+                    "country": "España",
+                    "image": "m06p04.png",
+                    "curiosity": "Isla de Lanzarote, España — Su paisaje lunar proviene de erupciones del siglo XVIII.",
+                    "pieces": 12,
+                    "magnetStrength": 0.5,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo6m06p05",
+                    "name": "Desierto del Namib",
+                    "country": "Namibia",
+                    "image": "m06p05.png",
+                    "curiosity": "Desierto del Namib, Namibia — Las dunas más antiguas del mundo, algunas superan los 300 metros.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo6m06p06",
+                    "name": "Monte Vesubio",
+                    "country": "Italia",
+                    "image": "m06p06.png",
+                    "curiosity": "Monte Vesubio, Italia — La erupción que destruyó Pompeya en el año 79 d.C.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo6m06p07",
+                    "name": "Isla de Hawai’i",
+                    "country": "EE. UU.",
+                    "image": "m06p07.png",
+                    "curiosity": "Isla de Hawai’i, EE. UU. — La lava del Kilauea ha creado nueva tierra en el océano.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo6m06p08",
+                    "name": "Desierto de Wadi Rum",
+                    "country": "Jordania",
+                    "image": "m06p08.png",
+                    "curiosity": "Desierto de Wadi Rum, Jordania — Escenario de películas por su paisaje marciano.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo6m06p09",
+                    "name": "Monte Fuji",
+                    "country": "Japón",
+                    "image": "m06p09.png",
+                    "curiosity": "Monte Fuji, Japón — Su forma perfecta lo convierte en símbolo de serenidad.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo6m06p10",
+                    "name": "Volcán Arenal",
+                    "country": "Costa Rica",
+                    "image": "m06p10.png",
+                    "curiosity": "Volcán Arenal, Costa Rica — Dormido desde 2010, su silueta domina la selva.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo6m06p11",
+                    "name": "Desierto Negro",
+                    "country": "Egipto",
+                    "image": "m06p11.png",
+                    "curiosity": "Desierto Negro, Egipto — Lleno de montículos de basalto formados por antiguos volcanes.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo6m06p12",
+                    "name": "Monte Stromboli",
+                    "country": "Italia",
+                    "image": "m06p12.png",
+                    "curiosity": "Monte Stromboli, Italia — Erupciona con pequeñas explosiones cada 20 minutos.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo6m06p13",
+                    "name": "Islas Canarias",
+                    "country": "España",
+                    "image": "m06p13.png",
+                    "curiosity": "Islas Canarias, España — Cada isla es el resultado de una erupción distinta.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo6m06p14",
+                    "name": "Parque Nacional de Yellowstone",
+                    "country": "EE. UU.",
+                    "image": "m06p14.png",
+                    "curiosity": "Parque Nacional de Yellowstone, EE. UU. — Es un supervolcán en reposo.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo6m06p15",
+                    "name": "Monte Kilimanjaro",
+                    "country": "Tanzania",
+                    "image": "m06p15.png",
+                    "curiosity": "Monte Kilimanjaro, Tanzania — Su cima nevada contrasta con las llanuras africanas.",
+                    "pieces": 25,
+                    "magnetStrength": 0,
+                    "gridSize": "5x5"
+                }
+            ]
+        },
+        "mundo7": {
+            "id": "mundo7",
+            "name": "Volcánico",
+            "emoji": "🌋",
+            "colorPalette": {
+                "background": "#FFF5EE",
+                "cardBorder": "#FFB3A3",
+                "cardBack": "#FF7F50",
+                "primary": "#FF4500",
+                "secondary": "#FFE4E1",
+                "accent": "#FFA07A"
+            },
+            "gridSize": "3x3",
+            "puzzles": [
+                {
+                    "id": "mundo7m07p01",
+                    "name": "Selva Amazónica",
+                    "country": "Brasil",
+                    "image": "m07p01.png",
+                    "curiosity": "Selva Amazónica, Brasil — Produce el 20% del oxígeno del planeta.",
+                    "pieces": 4,
+                    "magnetStrength": 0.8,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo7m07p02",
+                    "name": "Bosque de Yakushima",
+                    "country": "Japón",
+                    "image": "m07p02.png",
+                    "curiosity": "Bosque de Yakushima, Japón — Inspiró el escenario de “La princesa Mononoke”.",
+                    "pieces": 6,
+                    "magnetStrength": 0.7,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo7m07p03",
+                    "name": "Parque Nacional Kruger",
+                    "country": "Sudáfrica",
+                    "image": "m07p03.png",
+                    "curiosity": "Parque Nacional Kruger, Sudáfrica — Hogar de los “cinco grandes” de África.",
+                    "pieces": 9,
+                    "magnetStrength": 0.6,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo7m07p04",
+                    "name": "Monteverde",
+                    "country": "Costa Rica",
+                    "image": "m07p04.png",
+                    "curiosity": "Monteverde, Costa Rica — Sus bosques nublados albergan más de 400 especies de orquídeas.",
+                    "pieces": 12,
+                    "magnetStrength": 0.5,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo7m07p05",
+                    "name": "Delta del Okavango",
+                    "country": "Botsuana",
+                    "image": "m07p05.png",
+                    "curiosity": "Delta del Okavango, Botsuana — Uno de los pocos ríos que muere en el desierto.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo7m07p06",
+                    "name": "Bosque Negro",
+                    "country": "Alemania",
+                    "image": "m07p06.png",
+                    "curiosity": "Bosque Negro, Alemania — Su nombre viene de la densidad de sus abetos.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo7m07p07",
+                    "name": "Islas Galápagos",
+                    "country": "Ecuador",
+                    "image": "m07p07.png",
+                    "curiosity": "Islas Galápagos, Ecuador — Las iguanas marinas solo existen aquí.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo7m07p08",
+                    "name": "Pantanal",
+                    "country": "Brasil",
+                    "image": "m07p08.png",
+                    "curiosity": "Pantanal, Brasil — La zona húmeda más grande del mundo.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo7m07p09",
+                    "name": "Bosque de Bialowieza",
+                    "country": "Polonia",
+                    "image": "m07p09.png",
+                    "curiosity": "Bosque de Bialowieza, Polonia — Refugio del último bisonte europeo.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo7m07p10",
+                    "name": "Parque Nacional de Banff",
+                    "country": "Canadá",
+                    "image": "m07p10.png",
+                    "curiosity": "Parque Nacional de Banff, Canadá — Sus lagos glaciares cambian de color según la luz.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo7m07p11",
+                    "name": "Selva Valdiviana",
+                    "country": "Chile",
+                    "image": "m07p11.png",
+                    "curiosity": "Selva Valdiviana, Chile — Uno de los ecosistemas más antiguos de la Tierra.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo7m07p12",
+                    "name": "Lago Nakuru",
+                    "country": "Kenia",
+                    "image": "m07p12.png",
+                    "curiosity": "Lago Nakuru, Kenia — Santuario de flamencos rosados.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo7m07p13",
+                    "name": "Bosques del Cáucaso",
+                    "country": "Georgia",
+                    "image": "m07p13.png",
+                    "curiosity": "Bosques del Cáucaso, Georgia — Entre Europa y Asia, mezcla de especies únicas.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo7m07p14",
+                    "name": "Selva de Daintree",
+                    "country": "Australia",
+                    "image": "m07p14.png",
+                    "curiosity": "Selva de Daintree, Australia — El bosque tropical más antiguo del planeta.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo7m07p15",
+                    "name": "Isla de Borneo",
+                    "country": "Malasia",
+                    "image": "m07p15.png",
+                    "curiosity": "Isla de Borneo, Malasia — Hogar de los orangutanes y flores gigantes.",
+                    "pieces": 25,
+                    "magnetStrength": 0,
+                    "gridSize": "5x5"
+                }
+            ]
+        },
+        "mundo8": {
+            "id": "mundo8",
+            "name": "Submarino",
+            "emoji": "🐠",
+            "colorPalette": {
+                "background": "#E0FFFF",
+                "cardBorder": "#AFEEEE",
+                "cardBack": "#40E0D0",
+                "primary": "#00CED1",
+                "secondary": "#F0FFFF",
+                "accent": "#B0E0E6"
+            },
+            "gridSize": "3x3",
+            "puzzles": [
+                {
+                    "id": "mundo8m08p01",
+                    "name": "Laponia",
+                    "country": "Finlandia",
+                    "image": "m08p01.png",
+                    "curiosity": "Laponia, Finlandia — Durante el invierno, el sol apenas se asoma dos horas al día.",
+                    "pieces": 4,
+                    "magnetStrength": 0.8,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo8m08p02",
+                    "name": "Antártida",
+                    "country": "",
+                    "image": "m08p02.png",
+                    "curiosity": "Antártida — Es el continente más ventoso y seco del planeta.",
+                    "pieces": 6,
+                    "magnetStrength": 0.7,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo8m08p03",
+                    "name": "Lago Baikal",
+                    "country": "Rusia",
+                    "image": "m08p03.png",
+                    "curiosity": "Lago Baikal, Rusia — Su hielo es tan claro que se ve a 40 metros de profundidad.",
+                    "pieces": 9,
+                    "magnetStrength": 0.6,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo8m08p04",
+                    "name": "Montañas Rocosas",
+                    "country": "Canadá",
+                    "image": "m08p04.png",
+                    "curiosity": "Montañas Rocosas, Canadá — Al amanecer, el silencio se rompe solo con el crujido del hielo.",
+                    "pieces": 12,
+                    "magnetStrength": 0.5,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo8m08p05",
+                    "name": "Fiordos Noruegos",
+                    "country": "Noruega",
+                    "image": "m08p05.png",
+                    "curiosity": "Fiordos Noruegos, Noruega — El eco viaja durante segundos entre las montañas nevadas.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo8m08p06",
+                    "name": "Glaciar Perito Moreno",
+                    "country": "Argentina",
+                    "image": "m08p06.png",
+                    "curiosity": "Glaciar Perito Moreno, Argentina — Cada día avanza dos metros sin que se note.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo8m08p07",
+                    "name": "Valle de Yosemite",
+                    "country": "EE. UU.",
+                    "image": "m08p07.png",
+                    "curiosity": "Valle de Yosemite, EE. UU. — En invierno, las cascadas se convierten en columnas de hielo.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo8m08p08",
+                    "name": "Islandia",
+                    "country": "",
+                    "image": "m08p08.png",
+                    "curiosity": "Islandia — El agua termal contrasta con el hielo de alrededor.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo8m08p09",
+                    "name": "Lago Louise",
+                    "country": "Canadá",
+                    "image": "m08p09.png",
+                    "curiosity": "Lago Louise, Canadá — Su superficie helada se usa como pista de patinaje natural.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo8m08p10",
+                    "name": "Monte Cook",
+                    "country": "Nueva Zelanda",
+                    "image": "m08p10.png",
+                    "curiosity": "Monte Cook, Nueva Zelanda — Las leyendas maoríes lo llaman Aoraki, “el que perfora las nubes”.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo8m08p11",
+                    "name": "Tromsø",
+                    "country": "Noruega",
+                    "image": "m08p11.png",
+                    "curiosity": "Tromsø, Noruega — El mejor lugar para ver auroras en silencio absoluto.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo8m08p12",
+                    "name": "Campo de Hielo Patagónico",
+                    "country": "Chile",
+                    "image": "m08p12.png",
+                    "curiosity": "Campo de Hielo Patagónico, Chile — Uno de los mayores reservorios de agua dulce del mundo.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo8m08p13",
+                    "name": "Monte Everest",
+                    "country": "Nepal\/Tíbet",
+                    "image": "m08p13.png",
+                    "curiosity": "Monte Everest, Nepal\/Tíbet — El punto más alto del planeta, donde el aire casi no vibra.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo8m08p14",
+                    "name": "Svalbard",
+                    "country": "Noruega",
+                    "image": "m08p14.png",
+                    "curiosity": "Svalbard, Noruega — Los osos polares son más numerosos que las personas.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo8m08p15",
+                    "name": "Alpes Suizos",
+                    "country": "Suiza",
+                    "image": "m08p15.png",
+                    "curiosity": "Alpes Suizos, Suiza — En algunas aldeas aún no hay coches, solo trineos.",
+                    "pieces": 25,
+                    "magnetStrength": 0,
+                    "gridSize": "5x5"
+                }
+            ]
+        },
+        "mundo9": {
+            "id": "mundo9",
+            "name": "Montañoso",
+            "emoji": "⛰️",
+            "colorPalette": {
+                "background": "#F5F5DC",
+                "cardBorder": "#D2B48C",
+                "cardBack": "#BC9A6A",
+                "primary": "#8B7355",
+                "secondary": "#F5F5DC",
+                "accent": "#D2B48C"
+            },
+            "gridSize": "3x3",
+            "puzzles": [
+                {
+                    "id": "mundo9m09p01",
+                    "name": "Gran Cañón",
+                    "country": "EE. UU.",
+                    "image": "m09p01.png",
+                    "curiosity": "Gran Cañón, EE. UU. — Cada amanecer pinta nuevas sombras sobre sus paredes.",
+                    "pieces": 4,
+                    "magnetStrength": 0.8,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo9m09p02",
+                    "name": "Salar de Uyuni",
+                    "country": "Bolivia",
+                    "image": "m09p02.png",
+                    "curiosity": "Salar de Uyuni, Bolivia — Cuando llueve, se convierte en el espejo más grande del mundo.",
+                    "pieces": 6,
+                    "magnetStrength": 0.7,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo9m09p03",
+                    "name": "Desierto del Sáhara",
+                    "country": "Marruecos",
+                    "image": "m09p03.png",
+                    "curiosity": "Desierto del Sáhara, Marruecos — Al caer el sol, la arena se enfría en minutos.",
+                    "pieces": 9,
+                    "magnetStrength": 0.6,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo9m09p04",
+                    "name": "Monte Uluru",
+                    "country": "Australia",
+                    "image": "m09p04.png",
+                    "curiosity": "Monte Uluru, Australia — Cambia de color según la hora del día.",
+                    "pieces": 12,
+                    "magnetStrength": 0.5,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo9m09p05",
+                    "name": "Playa de Copacabana",
+                    "country": "Brasil",
+                    "image": "m09p05.png",
+                    "curiosity": "Playa de Copacabana, Brasil — Sus curvas siguen el ritmo de las olas.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo9m09p06",
+                    "name": "Cabo de Buena Esperanza",
+                    "country": "Sudáfrica",
+                    "image": "m09p06.png",
+                    "curiosity": "Cabo de Buena Esperanza, Sudáfrica — Donde se cruzan dos océanos.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo9m09p07",
+                    "name": "Desierto de Wadi Rum",
+                    "country": "Jordania",
+                    "image": "m09p07.png",
+                    "curiosity": "Desierto de Wadi Rum, Jordania — El cielo nocturno parece sin fin.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo9m09p08",
+                    "name": "Islas Fiyi",
+                    "country": "",
+                    "image": "m09p08.png",
+                    "curiosity": "Islas Fiyi — El mar adquiere reflejos dorados al atardecer.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo9m09p09",
+                    "name": "Monument Valley",
+                    "country": "EE. UU.",
+                    "image": "m09p09.png",
+                    "curiosity": "Monument Valley, EE. UU. — Escenario de incontables películas del oeste.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo9m09p10",
+                    "name": "Lago Titicaca",
+                    "country": "Perú",
+                    "image": "m09p10.png",
+                    "curiosity": "Lago Titicaca, Perú — Las puestas de sol tiñen el agua de cobre.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo9m09p11",
+                    "name": "Mont Saint-Michel",
+                    "country": "Francia",
+                    "image": "m09p11.png",
+                    "curiosity": "Mont Saint-Michel, Francia — Durante la marea alta parece flotar sobre el mar.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo9m09p12",
+                    "name": "Río Nilo",
+                    "country": "Egipto",
+                    "image": "m09p12.png",
+                    "curiosity": "Río Nilo, Egipto — La vida sigue su ritmo desde hace milenios.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo9m09p13",
+                    "name": "Torres del Paine",
+                    "country": "Chile",
+                    "image": "m09p13.png",
+                    "curiosity": "Torres del Paine, Chile — Las montañas se encienden en rojo con la primera luz.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo9m09p14",
+                    "name": "Gran Muralla",
+                    "country": "China",
+                    "image": "m09p14.png",
+                    "curiosity": "Gran Muralla, China — Se extiende como una línea hacia el horizonte.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo9m09p15",
+                    "name": "Santorini",
+                    "country": "Grecia",
+                    "image": "m09p15.png",
+                    "curiosity": "Santorini, Grecia — El sol se despide cada día entre cúpulas azules.",
+                    "pieces": 25,
+                    "magnetStrength": 0,
+                    "gridSize": "5x5"
+                }
+            ]
+        },
+        "mundo10": {
+            "id": "mundo10",
+            "name": "Espacial",
+            "emoji": "🚀",
+            "colorPalette": {
+                "background": "#1a1a2e",
+                "cardBorder": "#16213e",
+                "cardBack": "#0f3460",
+                "primary": "#533483",
+                "secondary": "#2d1b69",
+                "accent": "#1a1a2e"
+            },
+            "gridSize": "3x3",
+            "puzzles": [
+                {
+                    "id": "mundo10m10p01",
+                    "name": "Tromsø",
+                    "country": "Noruega",
+                    "image": "m10p01.png",
+                    "curiosity": "Tromsø, Noruega — El cielo baila cuando el viento solar acaricia la Tierra.",
+                    "pieces": 4,
+                    "magnetStrength": 0.8,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo10m10p02",
+                    "name": "Reikiavik",
+                    "country": "Islandia",
+                    "image": "m10p02.png",
+                    "curiosity": "Reikiavik, Islandia — Las luces del norte se reflejan sobre el mar helado.",
+                    "pieces": 6,
+                    "magnetStrength": 0.7,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo10m10p03",
+                    "name": "Lofoten",
+                    "country": "Noruega",
+                    "image": "m10p03.png",
+                    "curiosity": "Lofoten, Noruega — Las montañas parecen flotar bajo la aurora.",
+                    "pieces": 9,
+                    "magnetStrength": 0.6,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo10m10p04",
+                    "name": "Fairbanks",
+                    "country": "Alaska",
+                    "image": "m10p04.png",
+                    "curiosity": "Fairbanks, Alaska — Se pueden ver luces incluso a -30 °C.",
+                    "pieces": 12,
+                    "magnetStrength": 0.5,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo10m10p05",
+                    "name": "Abisko",
+                    "country": "Suecia",
+                    "image": "m10p05.png",
+                    "curiosity": "Abisko, Suecia — Su cielo despejado es ideal para observaciones astronómicas.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo10m10p06",
+                    "name": "Laponia",
+                    "country": "Finlandia",
+                    "image": "m10p06.png",
+                    "curiosity": "Laponia, Finlandia — Los renos pastan bajo el resplandor verde.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo10m10p07",
+                    "name": "Groenlandia",
+                    "country": "",
+                    "image": "m10p07.png",
+                    "curiosity": "Groenlandia — Las auroras pueden durar horas enteras.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo10m10p08",
+                    "name": "Lago Inari",
+                    "country": "Finlandia",
+                    "image": "m10p08.png",
+                    "curiosity": "Lago Inari, Finlandia — El hielo refleja los colores del cielo.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo10m10p09",
+                    "name": "Yukón",
+                    "country": "Canadá",
+                    "image": "m10p09.png",
+                    "curiosity": "Yukón, Canadá — Los pueblos indígenas las llaman “las voces de los antepasados”.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo10m10p10",
+                    "name": "Estación Espacial Internacional",
+                    "country": "",
+                    "image": "m10p10.png",
+                    "curiosity": "Estación Espacial Internacional — Los astronautas ven las auroras desde arriba.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo10m10p11",
+                    "name": "Península de Kola",
+                    "country": "Rusia",
+                    "image": "m10p11.png",
+                    "curiosity": "Península de Kola, Rusia — Se ve tanto aurora como estrellas fugaces.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo10m10p12",
+                    "name": "Kiruna",
+                    "country": "Suecia",
+                    "image": "m10p12.png",
+                    "curiosity": "Kiruna, Suecia — Las minas iluminan el horizonte mientras baila la aurora.",
+                    "pieces": 12,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo10m10p13",
+                    "name": "Yellowknife",
+                    "country": "Canadá",
+                    "image": "m10p13.png",
+                    "curiosity": "Yellowknife, Canadá — Considerado uno de los mejores lugares del mundo para verla.",
+                    "pieces": 16,
+                    "magnetStrength": 0,
+                    "gridSize": "4x4"
+                },
+                {
+                    "id": "mundo10m10p14",
+                    "name": "Reykjavik",
+                    "country": "Islandia",
+                    "image": "m10p14.png",
+                    "curiosity": "Reykjavik, Islandia — A veces la aurora se mezcla con luces de ciudad.",
+                    "pieces": 9,
+                    "magnetStrength": 0,
+                    "gridSize": "3x3"
+                },
+                {
+                    "id": "mundo10m10p15",
+                    "name": "Cabo Norte",
+                    "country": "Noruega",
+                    "image": "m10p15.png",
+                    "curiosity": "Cabo Norte, Noruega — Fin del continente, donde el cielo nunca duerme.",
+                    "pieces": 25,
+                    "magnetStrength": 0,
+                    "gridSize": "5x5"
+                }
+            ]
+        }
+    },
+    "gameSettings": {
+        "magnetStrength": {
+            "tutorial": [
+                0.8,
+                0.7,
+                0.6,
+                0.5
+            ],
+            "normal": 0
+        },
+        "piecesPerWorld": {
+            "mundo1": {
+                "normal": 9,
+                "challenge": 16
+            },
+            "mundo2": {
+                "normal": 9,
+                "challenge": 16
+            },
+            "mundo3": {
+                "normal": 9,
+                "challenge": 16
+            },
+            "mundo4": {
+                "normal": 9,
+                "challenge": 16
+            },
+            "mundo5": {
+                "normal": 9,
+                "challenge": 16
+            },
+            "mundo6": {
+                "normal": 9,
+                "challenge": 16
+            },
+            "mundo7": {
+                "normal": 9,
+                "challenge": 16
+            },
+            "mundo8": {
+                "normal": 9,
+                "challenge": 16
+            },
+            "mundo9": {
+                "normal": 9,
+                "challenge": 16
+            },
+            "mundo10": {
+                "normal": 9,
+                "challenge": 16
+            }
+        },
+        "responsiveSettings": {
+            "mobile": {
+                "maxPieces": 16,
+                "minPieceSize": 60
+            },
+            "tablet": {
+                "maxPieces": 25,
+                "minPieceSize": 50
+            },
+            "desktop": {
+                "maxPieces": 36,
+                "minPieceSize": 40
+            }
+        },
+        "difficultyProgression": {
+            "tutorialLevels": 4,
+            "challengeLevel": 15
+        },
+        "gameplay": {
+            "type": "relax",
+            "freeNavigation": true,
+            "surpriseMe": true,
+            "mixCompleted": true
+        }
+    }
+}

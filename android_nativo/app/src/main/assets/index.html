@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Rincones del Mundo - Puzzles Visuales</title>
+    <base href="./">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Barra de menú superior fija -->
+    <div id="top-menu-bar" class="top-menu-bar">
+        <div class="menu-content">
+            <button id="menu-settings" class="menu-btn" title="Ajustes">⚙️</button>
+            <button id="menu-map" class="menu-btn" title="Mapa de Mundos">🗺️</button>
+            <button id="menu-levels" class="menu-btn" title="Niveles" style="display: none;">📋</button>
+            <button id="menu-surprise" class="menu-btn" title="Sorpréndeme">🎲</button>
+            <button id="menu-shuffle" class="menu-btn" title="Mezclar Puzzle" style="display: none;">🔀</button>
+            <button id="menu-hint" class="menu-btn" title="Pista" style="display: none;">💡</button>
+            <button id="menu-preview" class="menu-btn" title="Vista Previa" style="display: none;">👁️</button>
+            <span id="menu-user-nick" class="menu-user-nick">👤 Invitado</span>
+        </div>
+    </div>
+
+    <!-- Pantalla de carga -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <h1>🌍 Rincones del Mundo</h1>
+                <p>Descubre lugares increíbles del planeta</p>
+            </div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Pantalla de inicio/bienvenida -->
+    <div id="intro-screen" class="screen intro-screen" style="display: none;">
+        <div class="intro-box">
+            <h1 class="intro-title">🌍 Rincones del Mundo</h1>
+            
+            <p class="intro-subtitle">
+                Descubre los lugares más increíbles del planeta resolviendo puzzles
+            </p>
+            
+            <button class="btn-play" id="start-game">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>JUGAR</span>
+            </button>
+            
+            <button class="google-btn" id="btn-google-login">
+                <svg class="google-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                <span>Entrar con Google</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Pantalla de mundos -->
+    <div id="worlds-screen" class="screen worlds-screen" style="display: none;">
+        <div class="worlds-header">
+            <h1>🌍 Mundos por Descubrir</h1>
+            <div class="worlds-stats">
+                <div class="stat">
+                    <span class="stat-icon">⏱️</span>
+                    <span class="stat-value" id="total-time">00:00</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-icon">🧩</span>
+                    <span class="stat-value" id="completed-puzzles">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="worlds-grid" id="worlds-grid">
+            <!-- Los mundos se generarán dinámicamente -->
+        </div>
+
+    </div>
+
+    <!-- Pantalla de niveles de un mundo -->
+    <div id="levels-screen" class="screen levels-screen" style="display: none;">
+        <div class="levels-header">
+            <div class="levels-title-container">
+                <h1 id="current-world-title">Mundo</h1>
+            </div>
+            <div class="world-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="world-progress-fill"></div>
+                </div>
+                <span id="world-progress-text">0/15</span>
+            </div>
+        </div>
+
+        <div class="levels-grid" id="levels-grid">
+            <!-- Los niveles se generarán dinámicamente -->
+        </div>
+        
+    </div>
+
+    <!-- Pantalla de puzzle -->
+    <div id="puzzle-screen" class="screen puzzle-screen" style="display: none;">
+        <div class="puzzle-header">
+            <div class="puzzle-title-container">
+                <h2 id="puzzle-title">Puzzle</h2>
+                <div class="puzzle-timer">
+                    <span class="timer-icon">🕒</span>
+                    <span id="puzzle-time">00:00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="puzzle-container">
+            <div class="puzzle-area" id="puzzle-area">
+                <!-- El puzzle se generará dinámicamente -->
+            </div>
+        </div>
+
+        <div class="puzzle-bottom-controls">
+            <button id="next-level-btn" class="next-button">Siguiente</button>
+        </div>
+
+        <div class="puzzle-controls">
+            <!-- Los controles ahora están en la barra de menú superior -->
+        </div>
+    </div>
+
+    <!-- Pantalla de completado -->
+    <div id="completed-screen" class="screen completed-screen" style="display: none;">
+        <div class="completed-toast">
+            <div class="toast-time"><span>🕒</span><span id="completed-time">00:00</span></div>
+            <div class="toast-curiosity" id="completed-curiosity-text">Curiosidad del lugar</div>
+            <div class="toast-actions">
+                <button id="back-to-levels-from-completed" class="toast-btn">⬅️</button>
+                <button id="next-puzzle" class="toast-btn">➡️</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de ajustes -->
+    <div id="settings-screen" class="screen settings-screen" style="display: none;">
+        <div class="settings-modal-box">
+            <!-- Header -->
+            <div class="settings-header">
+                <div class="header-left">
+                    <div class="header-icon">
+                        <span class="icon">⚙️</span>
+                    </div>
+                    <h2 class="header-title">Configuración</h2>
+                </div>
+                <button class="btn-close" id="close-settings">✕</button>
+            </div>
+            
+            <!-- Content -->
+            <div class="settings-content">
+                
+                <!-- AUDIO -->
+                <div class="settings-section">
+                    <h3 class="section-title">Audio</h3>
+                    
+                    <!-- Música de fondo -->
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-icon">🎵</span>
+                            <div class="setting-text">
+                                <p class="setting-name">Música de fondo</p>
+                            </div>
+                        </div>
+                        <button class="setting-toggle active" id="music-toggle" onclick="toggleMusic()">
+                            Desactivar
+                        </button>
+                        <input type="range" min="0" max="100" value="20" class="volume-slider" id="music-volume">
+                    </div>
+                    
+                    <!-- Efectos de sonido -->
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-icon">🔔</span>
+                            <div class="setting-text">
+                                <p class="setting-name">Efectos de sonido</p>
+                            </div>
+                        </div>
+                        <button class="setting-toggle active" id="sound-toggle" onclick="toggleSoundEffects()">
+                            Desactivar
+                        </button>
+                        <input type="range" min="0" max="100" value="70" class="volume-slider" id="sound-volume">
+                    </div>
+                </div>
+                
+                <!-- CUENTA -->
+                <div class="settings-section" id="account-section">
+                    <h3 class="section-title">Cuenta</h3>
+                    
+                    <!-- Usuario logueado -->
+                    <div id="account-logged-in" class="hidden">
+                        <!-- Email del usuario -->
+                        <div class="user-info-box">
+                            <p class="user-label">Usuario:</p>
+                            <p class="user-email" id="settings-user-email">ejemplo@gmail.com</p>
+                        </div>
+                        
+                        <!-- Botón cerrar sesión -->
+                        <button class="btn-logout" onclick="showLogoutConfirm()">
+                            <span class="btn-icon">🚪</span>
+                            Cerrar sesión
+                        </button>
+                        
+                        <!-- Botón eliminar cuenta -->
+                        <button class="btn-delete-account" onclick="showDeleteAccountInfo()">
+                            <span class="btn-icon">🗑️</span>
+                            Eliminar cuenta
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- Footer -->
+            <div class="settings-footer">
+                <p>📧 Problemas y sugerencias: info@intocables13.com</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de autenticación -->
+    <div id="auth-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="auth-title">Iniciar Sesión</h3>
+                <button class="modal-close" id="close-auth-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="auth-form">
+                    <!-- Formulario de autenticación se generará dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="background-music" loop>
+        <source src="audio/background.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="move-sound">
+        <source src="audio/move.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="complete-sound">
+        <source src="audio/complete.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Modal de vista previa del puzzle -->
+    <div id="puzzle-preview-modal" class="puzzle-preview-modal" style="display: none;">
+        <div class="puzzle-preview-content">
+            <div class="puzzle-preview-header">
+                <h3>👁️ Vista Previa del Puzzle</h3>
+                <div class="preview-timer">
+                    <span id="preview-countdown">5</span>s
+                </div>
+            </div>
+            <div class="puzzle-preview-image">
+                <img id="preview-puzzle-img" src="" alt="Vista previa del puzzle">
+            </div>
+            <div class="puzzle-preview-footer">
+                <p>¡Estudia la imagen y completa el puzzle!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Nick -->
+    <div id="nickModal" class="modal-overlay hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-box modal-nick">
+            <div class="modal-header">
+                <h2>¡Bienvenido a Rincones del Mundo!</h2>
+            </div>
+            <div class="modal-content-nick">
+                <p>Elige tu nombre de jugador:</p>
+                <div class="nick-input-container">
+                    <input type="text" id="nickInput" placeholder="Tu nick aquí..." maxlength="20" class="nick-input">
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn-primary-modal" onclick="confirmNick()">¡JUGAR!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de confirmación de logout -->
+    <div id="logoutConfirmModal" class="modal-overlay hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-box modal-confirm">
+            <div class="modal-header-confirm">
+                <span class="confirm-icon">⚠️</span>
+                <h2>Cerrar Sesión</h2>
+            </div>
+            <div class="modal-content-confirm">
+                <p>¿Estás seguro de que quieres cerrar sesión?</p>
+                <div class="modal-buttons-row">
+                    <button class="btn-cancel" onclick="closeLogoutConfirm()">Cancelar</button>
+                    <button class="btn-confirm-logout" onclick="confirmLogout()">Cerrar Sesión</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de información de eliminar cuenta -->
+    <div id="deleteAccountModal" class="modal-overlay hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-box modal-info">
+            <div class="modal-header">
+                <h2>Eliminar Cuenta</h2>
+            </div>
+            <div class="modal-content-info">
+                <p><strong>Para eliminar tu cuenta de Rincones del Mundo:</strong></p>
+                <ol>
+                    <li>Envía un correo a <strong>info@intocables13.com</strong></li>
+                    <li>Indica tu email de usuario: <span id="delete-account-email">tu@email.com</span></li>
+                    <li>Asunto: "Solicitud de eliminación de cuenta"</li>
+                </ol>
+                <p class="info-note">Tu cuenta será eliminada en un plazo máximo de 48 horas.</p>
+                <button class="btn-primary-modal" onclick="closeDeleteAccountModal()">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    
+    <!-- Sistema de autenticación (Estilo Memoflip) -->
+    <script>
+    // ========== CALLBACKS NATIVOS (Como memoflip) ==========
+    window.__onNativeLogin = function(payloadStr) {
+        console.log('🎯 __onNativeLogin llamado con:', payloadStr);
+        const p = JSON.parse(payloadStr);
+        
+        // Guardar usuario en localStorage
+        localStorage.setItem('user', JSON.stringify(p));
+        
+        // Cargar configuración de audio desde Firebase
+        if (window.game && window.game.state) {
+            if (p.audioEnabled !== undefined) {
+                window.game.state.audioEnabled = p.audioEnabled;
+                console.log('🎵 audioEnabled cargado desde Firebase:', p.audioEnabled);
+            }
+            if (p.soundEnabled !== undefined) {
+                window.game.state.soundEnabled = p.soundEnabled;
+                console.log('🔊 soundEnabled cargado desde Firebase:', p.soundEnabled);
+            }
+            // Aplicar configuración de audio
+            window.game.updateAudioSettings();
+            // Actualizar UI de settings
+            if (window.game.updateSettingsUI) {
+                window.game.updateSettingsUI();
+            }
+        }
+        
+        // Si tiene nick, cambiar botón a píldora de logout y sincronizar
+        if (p.hasNick) {
+            console.log('✅ Usuario con nick existente:', p.nick);
+            setUILoggedIn(p.nick);
+            // Sincronizar progreso entre localStorage y Firebase
+            syncProgressAfterLogin();
+        } else {
+            console.log('❌ Usuario sin nick, pidiendo nick...');
+            showNickModal(p);
+        }
+    };
+    
+    // ========== SINCRONIZACIÓN DE PROGRESO ==========
+    window.__onFirebaseProgressLoaded = function(firebaseProgressStr) {
+        console.log('📥 __onFirebaseProgressLoaded:', firebaseProgressStr);
+        
+        if (!firebaseProgressStr) {
+            // No hay progreso en Firebase, copiar localStorage a Firebase
+            console.log('ℹ️ No hay progreso en Firebase - copiando localStorage a Firebase');
+            if (window.game && window.game.state) {
+                window.game.state.saveProgress(); // Esto ahora guardará en Firebase
+            }
+            return;
+        }
+        
+        try {
+            const firebaseProgress = JSON.parse(firebaseProgressStr);
+            const localProgressStr = localStorage.getItem('rincones_del_mundo_progress');
+            
+            if (!localProgressStr) {
+                // No hay progreso local, usar Firebase
+                console.log('ℹ️ No hay progreso local - usando Firebase');
+                applyFirebaseProgress(firebaseProgress);
+                return;
+            }
+            
+            const localProgress = JSON.parse(localProgressStr);
+            
+            // Comparar y hacer merge
+            console.log('🔄 Sincronizando progreso local vs Firebase');
+            const mergedProgress = mergeProgress(localProgress, firebaseProgress);
+            
+            // Aplicar progreso fusionado
+            applyMergedProgress(mergedProgress);
+            
+            // Guardar en Firebase el progreso fusionado
+            if (window.game && window.game.state) {
+                window.game.state.saveProgress();
+            }
+        } catch (e) {
+            console.error('❌ Error en sincronización:', e);
+        }
+    };
+    
+    function syncProgressAfterLogin() {
+        if (window.AndroidInterface && window.AndroidInterface.getFirebaseProgress) {
+            console.log('🔄 Solicitando progreso de Firebase...');
+            window.AndroidInterface.getFirebaseProgress();
+        }
+    }
+    
+    function mergeProgress(local, firebase) {
+        console.log('📊 Merge - Local:', local);
+        console.log('📊 Merge - Firebase:', firebase);
+        
+        // Combinar completedLevels (unión de ambos)
+        const localCompleted = new Set(local.completedLevels || []);
+        const firebaseCompleted = new Set(firebase.completedLevels || []);
+        const mergedCompleted = new Set([...localCompleted, ...firebaseCompleted]);
+        
+        // Determinar cuál tiene más progreso (más niveles completados + mundo/nivel más avanzado)
+        const localTotal = localCompleted.size;
+        const firebaseTotal = firebaseCompleted.size;
+        
+        const localWorld = local.currentWorld || 1;
+        const localLevel = local.currentLevel || 1;
+        const firebaseWorld = firebase.currentWorld || 1;
+        const firebaseLevel = firebase.currentLevel || 1;
+        
+        // Comparar: primero por mundo, luego por nivel
+        let useLocal = false;
+        if (localWorld > firebaseWorld) {
+            useLocal = true;
+        } else if (localWorld === firebaseWorld && localLevel > firebaseLevel) {
+            useLocal = true;
+        } else if (localWorld === firebaseWorld && localLevel === firebaseLevel && localTotal > firebaseTotal) {
+            useLocal = true;
+        }
+        
+        console.log(`✅ Usando progreso de: ${useLocal ? 'LOCAL' : 'FIREBASE'}`);
+        
+        return {
+            completedLevels: Array.from(mergedCompleted),
+            currentWorld: useLocal ? localWorld : firebaseWorld,
+            currentLevel: useLocal ? localLevel : firebaseLevel,
+            totalTime: (local.totalTime || 0) + (firebase.totalTime || 0), // Sumar ambos tiempos
+            audioEnabled: local.audioEnabled !== undefined ? local.audioEnabled : true
+        };
+    }
+    
+    function applyFirebaseProgress(firebaseProgress) {
+        if (window.game && window.game.state) {
+            window.game.state.completedLevels = new Set(firebaseProgress.completedLevels || []);
+            window.game.state.currentWorld = firebaseProgress.currentWorld || 1;
+            window.game.state.currentLevel = firebaseProgress.currentLevel || 1;
+            window.game.state.totalTime = firebaseProgress.totalTime || 0;
+            window.game.state.saveProgress();
+            console.log('✅ Progreso de Firebase aplicado');
+        }
+    }
+    
+    function applyMergedProgress(mergedProgress) {
+        if (window.game && window.game.state) {
+            window.game.state.completedLevels = new Set(mergedProgress.completedLevels);
+            window.game.state.currentWorld = mergedProgress.currentWorld;
+            window.game.state.currentLevel = mergedProgress.currentLevel;
+            window.game.state.totalTime = mergedProgress.totalTime;
+            window.game.state.audioEnabled = mergedProgress.audioEnabled;
+            window.game.state.saveProgress();
+            console.log('✅ Progreso fusionado aplicado');
+        }
+    }
+    
+    window.__onNativeLogout = function() {
+        console.log('🚪 __onNativeLogout llamado');
+        // El localStorage.clear() ya fue llamado por Java, solo actualizar UI
+        setUILoggedOut();
+        console.log('✅ Logout completado - localStorage limpiado por Java');
+    };
+    
+    window.__onNativeLoginError = function(error) {
+        console.error('❌ __onNativeLoginError:', error);
+        alert('Error en login: ' + error);
+    };
+    
+    window.__onSaveNick = function(ok, err) {
+        console.log('💾 __onSaveNick:', ok, err);
+        if (ok) {
+            const u = JSON.parse(localStorage.getItem('user') || '{}');
+            const nick = document.querySelector('#nickInput').value.trim();
+            u.hasNick = true;
+            u.nick = nick;
+            localStorage.setItem('user', JSON.stringify(u));
+            setUILoggedIn(nick);
+            closeNickPrompt();
+            
+            // Sincronizar progreso después de guardar nick (usuario nuevo o invitado que se loguea)
+            syncProgressAfterLogin();
+        } else {
+            if (err === 'nick_taken') {
+                alert('❌ Este nick ya está siendo usado. Elige otro diferente.');
+            } else {
+                alert('❌ Error guardando nick: ' + (err || 'Error desconocido'));
+            }
+        }
+    };
+    
+    // ========== FUNCIONES DE UI ==========
+    function setUILoggedIn(nick) {
+        console.log('🎨 Actualizando UI para usuario logueado:', nick);
+        const googleBtn = document.getElementById('btn-google-login');
+        if (googleBtn) {
+            googleBtn.innerHTML = `
+                <div class="user-profile">
+                    <button class="logout-btn" title="Cerrar sesión">
+                        <svg class="logout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16,17 21,12 16,7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                        <span class="user-nick">${nick}</span>
+                    </button>
+                </div>
+            `;
+            googleBtn.className = 'google-btn user-logged-in';
+            googleBtn.onclick = null;
+            
+            // Event listener en la píldora
+            setTimeout(() => {
+                const userProfile = document.querySelector('.user-profile');
+                if (userProfile) {
+                    userProfile.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('🚪 Píldora de logout presionada');
+                        logout();
+                    });
+                }
+            }, 100);
+        }
+        
+        // Actualizar nick en la barra de menú
+        const menuUserNick = document.getElementById('menu-user-nick');
+        if (menuUserNick) {
+            menuUserNick.textContent = `👤 ${nick}`;
+        }
+    }
+    
+    function setUILoggedOut() {
+        console.log('🎨 Actualizando UI para usuario no logueado');
+        const googleBtn = document.getElementById('btn-google-login');
+        if (googleBtn) {
+            googleBtn.innerHTML = `
+                <svg class="google-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                <span>Entrar con Google</span>
+            `;
+            googleBtn.className = 'google-btn';
+            googleBtn.onclick = loginWithGoogle;
+        }
+        
+        // Actualizar nick en la barra de menú a "Invitado"
+        const menuUserNick = document.getElementById('menu-user-nick');
+        if (menuUserNick) {
+            menuUserNick.textContent = '👤 Invitado';
+        }
+    }
+    
+    function loginWithGoogle() {
+        console.log('🔐 Iniciando login con Google...');
+        if (window.AndroidInterface && window.AndroidInterface.login) {
+            window.AndroidInterface.login();
+        } else {
+            console.error('❌ AndroidInterface.login no disponible');
+        }
+    }
+    
+    function logout() {
+        console.log('🚪 Iniciando logout...');
+        if (window.AndroidInterface && window.AndroidInterface.logout) {
+            window.AndroidInterface.logout();
+        } else {
+            console.error('❌ AndroidInterface.logout no disponible');
+            localStorage.clear();
+            location.reload();
+        }
+    }
+    
+    // ========== MODAL DE NICK ==========
+    function showNickModal(user) {
+        document.getElementById('nickModal').classList.remove('hidden');
+        setTimeout(() => {
+            document.getElementById('nickInput').focus();
+        }, 100);
+    }
+    
+    function confirmNick() {
+        const nick = document.getElementById('nickInput').value.trim();
+        
+        if (!nick) {
+            alert('⚠️ Por favor, introduce tu nick');
+            return;
+        }
+        
+        if (nick.length < 2) {
+            alert('⚠️ El nick debe tener al menos 2 caracteres');
+            return;
+        }
+        
+        console.log('🎮 Confirmando nick:', nick);
+        if (window.AndroidInterface && window.AndroidInterface.saveNick) {
+            window.AndroidInterface.saveNick(nick);
+        }
+    }
+    
+    function closeNickPrompt() {
+        document.getElementById('nickModal').classList.add('hidden');
+    }
+    
+    // Enter para confirmar nick
+    document.addEventListener('DOMContentLoaded', function() {
+        const nickInput = document.getElementById('nickInput');
+        if (nickInput) {
+            nickInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    confirmNick();
+                }
+            });
+        }
+        
+        // Verificar si ya hay usuario logueado
+        const user = localStorage.getItem('user');
+        if (user) {
+            try {
+                const userData = JSON.parse(user);
+                if (userData.hasNick && userData.nick) {
+                    setUILoggedIn(userData.nick);
+                }
+            } catch (error) {
+                console.error('❌ Error parseando usuario:', error);
+            }
+        }
+        
+        // Event listener para botón de Google
+        const googleBtn = document.getElementById('btn-google-login');
+        if (googleBtn) {
+            googleBtn.onclick = loginWithGoogle;
+        }
+        
+        // Event listener para botón JUGAR
+        const startGameBtn = document.getElementById('start-game');
+        if (startGameBtn) {
+            startGameBtn.onclick = function() {
+                console.log('🎮 Botón JUGAR presionado');
+                if (window.game) {
+                    window.game.showWorldsScreen();
+                } else {
+                    console.error('❌ Game no está disponible');
+                }
+            };
+        }
+        
+        // Actualizar settings si el usuario está logueado
+        updateSettingsUI();
+    });
+    
+    // ========== FUNCIONES DE SETTINGS ==========
+    function updateSettingsUI() {
+        const userData = localStorage.getItem('user');
+        if (userData) {
+            try {
+                const user = JSON.parse(userData);
+                if (user.hasNick && user.nick) {
+                    // Usuario logueado: mostrar sección de cuenta
+                    document.getElementById('account-logged-in').classList.remove('hidden');
+                    document.getElementById('settings-user-email').textContent = user.email;
+                    document.getElementById('delete-account-email').textContent = user.email;
+                }
+            } catch (e) {
+                console.error('Error parseando usuario en settings:', e);
+            }
+        }
+    }
+    
+    function toggleMusic() {
+        const btn = document.getElementById('music-toggle');
+        const isActive = btn.classList.contains('active');
+        
+        if (isActive) {
+            // Desactivar música
+            btn.classList.remove('active');
+            btn.textContent = 'Activar';
+            
+            // Actualizar estado
+            if (window.game && window.game.state) {
+                window.game.state.audioEnabled = false;
+                window.game.state.saveProgress();
+            }
+            
+            // Pausar música
+            if (window.game && window.game.audio && window.game.audio.background) {
+                window.game.audio.background.pause();
+                console.log('🎵 Música pausada');
+            }
+            
+            // Sincronizar con Firebase
+            if (window.AndroidInterface && window.AndroidInterface.updateAudioEnabled) {
+                window.AndroidInterface.updateAudioEnabled(false);
+            }
+        } else {
+            // Activar música
+            btn.classList.add('active');
+            btn.textContent = 'Desactivar';
+            
+            // Actualizar estado
+            if (window.game && window.game.state) {
+                window.game.state.audioEnabled = true;
+                window.game.audioActivated = true; // Marcar como activado para permitir reproducción
+                window.game.state.saveProgress();
+            }
+            
+            // Reproducir música
+            if (window.game && window.game.audio && window.game.audio.background) {
+                window.game.audio.background.play().catch(e => {
+                    console.warn('No se pudo reproducir música:', e);
+                });
+                console.log('🎵 Música iniciada');
+            }
+            
+            // Sincronizar con Firebase
+            if (window.AndroidInterface && window.AndroidInterface.updateAudioEnabled) {
+                window.AndroidInterface.updateAudioEnabled(true);
+            }
+        }
+    }
+    
+    function toggleSoundEffects() {
+        const btn = document.getElementById('sound-toggle');
+        const isActive = btn.classList.contains('active');
+        
+        if (isActive) {
+            // Desactivar efectos
+            btn.classList.remove('active');
+            btn.textContent = 'Activar';
+            
+            // Actualizar estado
+            if (window.game && window.game.state) {
+                window.game.state.soundEnabled = false;
+                window.game.state.saveProgress();
+            }
+            
+            // Mutear solo efectos de sonido (move y complete)
+            if (window.game && window.game.audio) {
+                if (window.game.audio.move) {
+                    window.game.audio.move.muted = true;
+                    window.game.audio.move.volume = 0;
+                }
+                if (window.game.audio.complete) {
+                    window.game.audio.complete.muted = true;
+                    window.game.audio.complete.volume = 0;
+                }
+                console.log('🔔 Efectos desactivados');
+            }
+            
+            // Sincronizar con Firebase
+            if (window.AndroidInterface && window.AndroidInterface.updateSoundEnabled) {
+                window.AndroidInterface.updateSoundEnabled(false);
+            }
+        } else {
+            // Activar efectos
+            btn.classList.add('active');
+            btn.textContent = 'Desactivar';
+            
+            // Actualizar estado
+            if (window.game && window.game.state) {
+                window.game.state.soundEnabled = true;
+                window.game.state.saveProgress();
+            }
+            
+            // Desmutear solo efectos de sonido (move y complete)
+            if (window.game && window.game.audio) {
+                const soundVol = document.getElementById('sound-volume');
+                const volume = soundVol ? soundVol.value / 100 : 0.7;
+                
+                if (window.game.audio.move) {
+                    window.game.audio.move.muted = false;
+                    window.game.audio.move.volume = volume;
+                }
+                if (window.game.audio.complete) {
+                    window.game.audio.complete.muted = false;
+                    window.game.audio.complete.volume = volume;
+                }
+                console.log('🔔 Efectos activados');
+            }
+            // Sincronizar con Firebase
+            if (window.AndroidInterface && window.AndroidInterface.updateSoundEnabled) {
+                window.AndroidInterface.updateSoundEnabled(true);
+            }
+        }
+    }
+    
+    // Control de volumen de música
+    document.addEventListener('DOMContentLoaded', function() {
+        const musicVolume = document.getElementById('music-volume');
+        if (musicVolume) {
+            musicVolume.addEventListener('input', function(e) {
+                const volume = e.target.value / 100;
+                if (window.game && window.game.audio && window.game.audio.background) {
+                    window.game.audio.background.volume = volume;
+                }
+            });
+        }
+        
+        const soundVolume = document.getElementById('sound-volume');
+        if (soundVolume) {
+            soundVolume.addEventListener('input', function(e) {
+                const volume = e.target.value / 100;
+                if (window.game && window.game.audio) {
+                    if (window.game.audio.move) window.game.audio.move.volume = volume;
+                    if (window.game.audio.complete) window.game.audio.complete.volume = volume;
+                }
+            });
+        }
+    });
+    
+    function showLogoutConfirm() {
+        document.getElementById('logoutConfirmModal').classList.remove('hidden');
+    }
+    
+    function closeLogoutConfirm() {
+        document.getElementById('logoutConfirmModal').classList.add('hidden');
+    }
+    
+    function confirmLogout() {
+        closeLogoutConfirm();
+        logout();
+        // Volver a pantalla intro
+        if (window.game) {
+            window.game.showIntroScreen();
+        }
+    }
+    
+    function showDeleteAccountInfo() {
+        document.getElementById('deleteAccountModal').classList.remove('hidden');
+    }
+    
+    function closeDeleteAccountModal() {
+        document.getElementById('deleteAccountModal').classList.add('hidden');
+    }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Puzzle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f0f0f0;
+        }
+        
+        .puzzle-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+            border: 2px solid #333;
+            background: #fff;
+        }
+        
+        .puzzle-tile {
+            position: absolute;
+            cursor: grab;
+            border: 1px solid #000;
+            transition: all 0.2s ease;
+        }
+        
+        .puzzle-tile:active {
+            cursor: grabbing;
+        }
+        
+        .puzzle-cell {
+            position: absolute;
+            border: 1px dashed rgba(0,0,0,0.3);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Puzzle - Arrastrar y Soltar</h1>
+    <p>Arrastra las piezas para completar el puzzle</p>
+    
+    <div class="puzzle-container" id="puzzle-container">
+        <!-- Las piezas se crearán aquí -->
+    </div>
+    
+    <script>
+        // Configuración
+        const gridSize = 3;
+        const totalPieces = gridSize * gridSize;
+        const imagePath = 'img/puzzles/m01p01.png';
+        
+        let puzzleTiles = [];
+        let puzzleOrder = Array.from({length: totalPieces}, (_, i) => i);
+        let dragging = null;
+        let start = null;
+        
+        // Mezclar orden
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        // Obtener rectángulo de celda
+        function getCellRect(index) {
+            const cellSize = 300 / gridSize;
+            const col = index % gridSize;
+            const row = Math.floor(index / gridSize);
+            
+            return {
+                left: col * cellSize,
+                top: row * cellSize,
+                width: cellSize,
+                height: cellSize
+            };
+        }
+        
+        // Renderizar posiciones
+        function renderPositions() {
+            for (let pieceIndex = 0; pieceIndex < puzzleTiles.length; pieceIndex++) {
+                const pos = puzzleOrder.indexOf(pieceIndex);
+                const rect = getCellRect(pos);
+                const tile = puzzleTiles[pieceIndex];
+                
+                Object.assign(tile.style, {
+                    left: rect.left + 'px',
+                    top: rect.top + 'px',
+                    width: rect.width + 'px',
+                    height: rect.height + 'px'
+                });
+                
+                tile.classList.toggle('correct', pos === pieceIndex);
+            }
+        }
+        
+        // Crear puzzle
+        function createPuzzle() {
+            const container = document.getElementById('puzzle-container');
+            container.innerHTML = '';
+            
+            // Crear celdas guía
+            for (let i = 0; i < totalPieces; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'puzzle-cell';
+                const rect = getCellRect(i);
+                Object.assign(cell.style, {
+                    left: rect.left + 'px',
+                    top: rect.top + 'px',
+                    width: rect.width + 'px',
+                    height: rect.height + 'px'
+                });
+                container.appendChild(cell);
+            }
+            
+            // Crear piezas
+            puzzleTiles = [];
+            for (let i = 0; i < totalPieces; i++) {
+                const tile = document.createElement('div');
+                tile.className = 'puzzle-tile';
+                tile.dataset.pieceIndex = i;
+                
+                // Calcular posición de la imagen
+                const row = Math.floor(i / gridSize);
+                const col = i % gridSize;
+                const bpX = -(col * 100);
+                const bpY = -(row * 100);
+                
+                Object.assign(tile.style, {
+                    backgroundImage: `url(${imagePath})`,
+                    backgroundSize: `${gridSize * 100}% ${gridSize * 100}%`,
+                    backgroundPosition: `${bpX}% ${bpY}%`
+                });
+                
+                puzzleTiles.push(tile);
+                container.appendChild(tile);
+            }
+            
+            // Mezclar
+            shuffleArray(puzzleOrder);
+            renderPositions();
+            enableDrag();
+        }
+        
+        // Habilitar arrastrar
+        function enableDrag() {
+            puzzleTiles.forEach((tile, pieceIndex) => {
+                tile.addEventListener('pointerdown', (e) => {
+                    e.preventDefault();
+                    tile.setPointerCapture(e.pointerId);
+                    dragging = pieceIndex;
+                    start = { x: e.clientX, y: e.clientY };
+                    tile.style.zIndex = '10';
+                });
+                
+                tile.addEventListener('pointermove', (e) => {
+                    if (dragging !== pieceIndex) return;
+                    
+                    const pos = puzzleOrder.indexOf(pieceIndex);
+                    const rect = getCellRect(pos);
+                    const dx = e.clientX - start.x;
+                    const dy = e.clientY - start.y;
+                    
+                    Object.assign(tile.style, {
+                        left: (rect.left + dx) + 'px',
+                        top: (rect.top + dy) + 'px'
+                    });
+                });
+                
+                tile.addEventListener('pointerup', (e) => {
+                    if (dragging !== pieceIndex) return;
+                    
+                    tile.releasePointerCapture(e.pointerId);
+                    tile.style.zIndex = '';
+                    
+                    const target = nearestCell(
+                        parseInt(tile.style.left || 0),
+                        parseInt(tile.style.top || 0)
+                    );
+                    
+                    const fromPos = puzzleOrder.indexOf(pieceIndex);
+                    const toPos = target;
+                    const other = puzzleOrder[toPos];
+                    
+                    puzzleOrder[toPos] = pieceIndex;
+                    puzzleOrder[fromPos] = other;
+                    
+                    dragging = null;
+                    renderPositions();
+                    checkComplete();
+                });
+            });
+        }
+        
+        // Celda más cercana
+        function nearestCell(left, top) {
+            const cellSize = 300 / gridSize;
+            const col = Math.round(left / cellSize);
+            const row = Math.round(top / cellSize);
+            
+            const clampedCol = Math.max(0, Math.min(gridSize - 1, col));
+            const clampedRow = Math.max(0, Math.min(gridSize - 1, row));
+            
+            return clampedRow * gridSize + clampedCol;
+        }
+        
+        // Verificar completado
+        function checkComplete() {
+            const isComplete = puzzleOrder.every((pieceIndex, position) => pieceIndex === position);
+            if (isComplete) {
+                alert('¡Puzzle completado!');
+            }
+        }
+        
+        // Inicializar
+        createPuzzle();
+    </script>
+</body>
+</html>

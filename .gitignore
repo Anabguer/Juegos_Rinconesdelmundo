@@ -1,0 +1,30 @@
+# Node modules
+node_modules/
+package-lock.json
+
+# Android build files
+android_nativo/app/build/
+android_nativo/build/
+android_nativo/.gradle/
+android_nativo/local.properties
+android_nativo/gradle/wrapper/gradle-8.0/
+
+# Archivos temporales y logs
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# APKs y archivos binarios
+*.apk
+*.ap_
+*.dex
+*.class
+

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Rincones del Mundo - Puzzles Visuales</title>
+    <base href="./">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Barra de menú superior fija -->
+    <div id="top-menu-bar" class="top-menu-bar">
+        <div class="menu-content">
+            <button id="menu-settings" class="menu-btn" title="Ajustes">⚙️</button>
+            <button id="menu-map" class="menu-btn" title="Mapa de Mundos">🗺️</button>
+            <button id="menu-levels" class="menu-btn" title="Niveles" style="display: none;">📋</button>
+            <button id="menu-surprise" class="menu-btn" title="Sorpréndeme">🎲</button>
+            <button id="menu-shuffle" class="menu-btn" title="Mezclar Puzzle" style="display: none;">🔀</button>
+            <button id="menu-hint" class="menu-btn" title="Pista" style="display: none;">💡</button>
+            <button id="menu-preview" class="menu-btn" title="Vista Previa" style="display: none;">👁️</button>
+        </div>
+    </div>
+
+    <!-- Pantalla de carga -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <h1>🌍 Rincones del Mundo</h1>
+                <p>Descubre lugares increíbles del planeta</p>
+            </div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+
+
+    <!-- Pantalla de mundos -->
+    <div id="worlds-screen" class="screen worlds-screen" style="display: none;">
+        <div class="worlds-header">
+            <h1>🌍 Mundos por Descubrir</h1>
+            <div class="worlds-stats">
+                <div class="stat">
+                    <span class="stat-icon">⏱️</span>
+                    <span class="stat-value" id="total-time">00:00</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-icon">🧩</span>
+                    <span class="stat-value" id="completed-puzzles">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="worlds-grid" id="worlds-grid">
+            <!-- Los mundos se generarán dinámicamente -->
+        </div>
+
+    </div>
+
+    <!-- Pantalla de niveles de un mundo -->
+    <div id="levels-screen" class="screen levels-screen" style="display: none;">
+        <div class="levels-header">
+            <div class="levels-title-container">
+                <h1 id="current-world-title">Mundo</h1>
+            </div>
+            <div class="world-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="world-progress-fill"></div>
+                </div>
+                <span id="world-progress-text">0/15</span>
+            </div>
+        </div>
+
+        <div class="levels-grid" id="levels-grid">
+            <!-- Los niveles se generarán dinámicamente -->
+        </div>
+        
+    </div>
+
+    <!-- Pantalla de puzzle -->
+    <div id="puzzle-screen" class="screen puzzle-screen" style="display: none;">
+        <div class="puzzle-header">
+            <div class="puzzle-title-container">
+                <h2 id="puzzle-title">Puzzle</h2>
+                <div class="puzzle-timer">
+                    <span class="timer-icon">🕒</span>
+                    <span id="puzzle-time">00:00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="puzzle-container">
+            <div class="puzzle-area" id="puzzle-area">
+                <!-- El puzzle se generará dinámicamente -->
+            </div>
+        </div>
+
+        <div class="puzzle-bottom-controls">
+            <button id="next-level-btn" class="next-button">Siguiente</button>
+        </div>
+
+        <div class="puzzle-controls">
+            <!-- Los controles ahora están en la barra de menú superior -->
+        </div>
+    </div>
+
+    <!-- Pantalla de completado -->
+    <div id="completed-screen" class="screen completed-screen" style="display: none;">
+        <div class="completed-toast">
+            <div class="toast-time"><span>🕒</span><span id="completed-time">00:00</span></div>
+            <div class="toast-curiosity" id="completed-curiosity-text">Curiosidad del lugar</div>
+            <div class="toast-actions">
+                <button id="back-to-levels-from-completed" class="toast-btn">⬅️</button>
+                <button id="next-puzzle" class="toast-btn">➡️</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de ajustes -->
+    <div id="settings-screen" class="screen settings-screen" style="display: none;">
+        <div class="settings-content">
+            <div class="settings-header">
+                <button id="close-settings" class="close-btn">✕</button>
+                <h1>⚙️ Ajustes</h1>
+            </div>
+            
+            <div class="settings-sections">
+                <div class="settings-section">
+                    <h3>🔊 Audio</h3>
+                    <div class="setting-item">
+                        <label for="sound-toggle">Sonido:</label>
+                        <input type="checkbox" id="sound-toggle" checked>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>👤 Cuenta</h3>
+                    <div class="setting-item">
+                        <button id="google-login" class="btn-secondary" disabled>
+                            🔐 Iniciar sesión con Google
+                        </button>
+                        <p class="setting-note">Próximamente disponible</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de autenticación -->
+    <div id="auth-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="auth-title">Iniciar Sesión</h3>
+                <button class="modal-close" id="close-auth-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="auth-form">
+                    <!-- Formulario de autenticación se generará dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="background-music" loop>
+        <source src="audio/background.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="move-sound">
+        <source src="audio/move.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="complete-sound">
+        <source src="audio/complete.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Modal de vista previa del puzzle -->
+    <div id="puzzle-preview-modal" class="puzzle-preview-modal" style="display: none;">
+        <div class="puzzle-preview-content">
+            <div class="puzzle-preview-header">
+                <h3>👁️ Vista Previa del Puzzle</h3>
+                <div class="preview-timer">
+                    <span id="preview-countdown">5</span>s
+                </div>
+            </div>
+            <div class="puzzle-preview-image">
+                <img id="preview-puzzle-img" src="" alt="Vista previa del puzzle">
+            </div>
+            <div class="puzzle-preview-footer">
+                <p>¡Estudia la imagen y completa el puzzle!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - localStorage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .btn-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-close:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        .content {
+            padding: 24px;
+        }
+
+        .storage-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .storage-key {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .storage-key::before {
+            content: "🔑";
+        }
+
+        .storage-value {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #495057;
+            word-wrap: break-word;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: #6c757d;
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .stats {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 16px;
+            margin-bottom: 24px;
+            border-radius: 4px;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .stats-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .stats-label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .stats-value {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .btn-refresh {
+            background: #28a745;
+            border: none;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-refresh:hover {
+            background: #218838;
+        }
+
+        .btn-clear {
+            background: #dc3545;
+            border: none;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-clear:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Debug - localStorage</h1>
+            <div>
+                <button class="btn-clear" onclick="clearStorage()">🗑️ Borrar Todo</button>
+                <button class="btn-refresh" onclick="location.reload()">♻️ Refrescar</button>
+                <button class="btn-close" onclick="window.history.back()">✕ Cerrar</button>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="stats">
+                <div class="stats-row">
+                    <span class="stats-label">Total de claves:</span>
+                    <span class="stats-value" id="total-keys">0</span>
+                </div>
+                <div class="stats-row">
+                    <span class="stats-label">Tamaño aproximado:</span>
+                    <span class="stats-value" id="total-size">0 KB</span>
+                </div>
+            </div>
+
+            <div id="storage-content"></div>
+        </div>
+    </div>
+
+    <script>
+        function displayLocalStorage() {
+            const container = document.getElementById('storage-content');
+            const totalKeysEl = document.getElementById('total-keys');
+            const totalSizeEl = document.getElementById('total-size');
+            
+            // Limpiar contenedor
+            container.innerHTML = '';
+            
+            // Obtener todas las claves
+            const keys = Object.keys(localStorage);
+            
+            if (keys.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <h3>localStorage vacío</h3>
+                        <p>No hay datos almacenados</p>
+                    </div>
+                `;
+                totalKeysEl.textContent = '0';
+                totalSizeEl.textContent = '0 KB';
+                return;
+            }
+            
+            // Calcular tamaño total
+            let totalSize = 0;
+            
+            // Mostrar cada clave
+            keys.forEach(key => {
+                const value = localStorage.getItem(key);
+                const size = new Blob([value]).size;
+                totalSize += size;
+                
+                const item = document.createElement('div');
+                item.className = 'storage-item';
+                
+                const keyEl = document.createElement('div');
+                keyEl.className = 'storage-key';
+                keyEl.textContent = key;
+                
+                const valueEl = document.createElement('div');
+                valueEl.className = 'storage-value';
+                
+                // Intentar formatear JSON
+                try {
+                    const parsed = JSON.parse(value);
+                    valueEl.textContent = JSON.stringify(parsed, null, 2);
+                } catch (e) {
+                    valueEl.textContent = value;
+                }
+                
+                item.appendChild(keyEl);
+                item.appendChild(valueEl);
+                container.appendChild(item);
+            });
+            
+            // Actualizar stats
+            totalKeysEl.textContent = keys.length;
+            totalSizeEl.textContent = (totalSize / 1024).toFixed(2) + ' KB';
+        }
+        
+        // Mostrar al cargar
+        displayLocalStorage();
+        
+        // Función para limpiar localStorage
+        function clearStorage() {
+            console.log('🗑️ clearStorage() llamado');
+            const totalKeys = Object.keys(localStorage).length;
+            console.log('📊 Total de claves ANTES de borrar:', totalKeys);
+            
+            const confirmacion = confirm('⚠️ ¿Estás seguro de que quieres borrar TODO el localStorage?\n\nEsto eliminará:\n- Progreso del juego\n- Datos de usuario\n- Configuraciones\n\nEsta acción no se puede deshacer.');
+            console.log('✅ Confirmación del usuario:', confirmacion);
+            
+            if (confirmacion) {
+                console.log('🗑️ Ejecutando localStorage.clear()...');
+                localStorage.clear();
+                console.log('✅ localStorage.clear() ejecutado');
+                console.log('📊 Total de claves DESPUÉS de borrar:', Object.keys(localStorage).length);
+                alert('✅ localStorage borrado correctamente\n\nClaves eliminadas: ' + totalKeys);
+                displayLocalStorage();
+            } else {
+                console.log('❌ Usuario canceló el borrado');
+            }
+        }
+    </script>
+</body>
+</html>
+

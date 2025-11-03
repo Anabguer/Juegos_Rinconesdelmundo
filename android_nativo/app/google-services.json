@@ -1,0 +1,182 @@
+{
+  "project_info": {
+    "project_number": "439019722673",
+    "project_id": "intocables13",
+    "storage_bucket": "intocables13.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439019722673:android:5a78cc103d7c93198c0f90",
+        "android_client_info": {
+          "package_name": "com.intocables.losmundosdearay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439019722673-f5nlv0poth5ji2tt08halnq2v68vb91b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.intocables.losmundosdearay",
+            "certificate_hash": "5bfa9376a26d261fcd64242418ab6f360139580e"
+          }
+        },
+        {
+          "client_id": "439019722673-uav5a1g88gmvh2b0gq9qa3rp0tp220il.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.intocables.losmundosdearay",
+            "certificate_hash": "6df10ef5a509768ba3ed843644f524d49ee00c0d"
+          }
+        },
+        {
+          "client_id": "439019722673-oaibju1ssbvnbnvvgbvj3ibetu68tsv2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ88_2qctO684sgo28uPWFLYgWqZ5qIHk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439019722673-oaibju1ssbvnbnvvgbvj3ibetu68tsv2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439019722673:android:2cac377bec8a350e8c0f90",
+        "android_client_info": {
+          "package_name": "com.intocables.lumetrix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439019722673-cuoemkdnnu88ec1l06irjntlgutkbtmh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.intocables.lumetrix",
+            "certificate_hash": "e15aa48c0f935642186ea067bf1745484d7b1fad"
+          }
+        },
+        {
+          "client_id": "439019722673-oaibju1ssbvnbnvvgbvj3ibetu68tsv2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ88_2qctO684sgo28uPWFLYgWqZ5qIHk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439019722673-oaibju1ssbvnbnvvgbvj3ibetu68tsv2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439019722673:android:3fb151b97bbbc3838c0f90",
+        "android_client_info": {
+          "package_name": "com.intocables.memoflip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439019722673-835c15qcm3ef95so50epd1mpaqnh8qjb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.intocables.memoflip",
+            "certificate_hash": "b7a269267d6194c2a64c3a29749426fb4a34ede9"
+          }
+        },
+        {
+          "client_id": "439019722673-ftr9s7ruqciq29ej5h64jmgnsa69j6av.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.intocables.memoflip",
+            "certificate_hash": "1919685429e64c22cf68e2c2fb2ad23096ec27f7"
+          }
+        },
+        {
+          "client_id": "439019722673-uhiootns4icja2lscfk603snuj3t666l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.intocables.memoflip",
+            "certificate_hash": "e15aa48c0f935642186ea067bf1745484d7b1fad"
+          }
+        },
+        {
+          "client_id": "439019722673-oaibju1ssbvnbnvvgbvj3ibetu68tsv2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ88_2qctO684sgo28uPWFLYgWqZ5qIHk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439019722673-oaibju1ssbvnbnvvgbvj3ibetu68tsv2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439019722673:android:100266ff9563ebee8c0f90",
+        "android_client_info": {
+          "package_name": "com.intocables.rinconesdelmundo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439019722673-26f71ha6k4vceq3ljfnh8onmf0ivin8l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.intocables.rinconesdelmundo",
+            "certificate_hash": "6df10ef5a509768ba3ed843644f524d49ee00c0d"
+          }
+        },
+        {
+          "client_id": "439019722673-oaibju1ssbvnbnvvgbvj3ibetu68tsv2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ88_2qctO684sgo28uPWFLYgWqZ5qIHk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439019722673-oaibju1ssbvnbnvvgbvj3ibetu68tsv2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

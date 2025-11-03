@@ -1,0 +1,16 @@
+{
+	"appId": "com.colisan.rinconesdelmundo",
+	"appName": "Rincones del Mundo",
+	"webDir": "www",
+	"server": {
+		"androidScheme": "https"
+	},
+	"plugins": {
+		"AdMob": {
+			"appId": "ca-app-pub-3940256099942544~3347511713",
+			"bannerAdId": "ca-app-pub-3940256099942544/6300978111",
+			"interstitialAdId": "ca-app-pub-3940256099942544/1033173712",
+			"rewardedAdId": "ca-app-pub-3940256099942544/5224354917"
+		}
+	}
+}

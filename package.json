@@ -1,0 +1,25 @@
+{
+  "name": "rincones-del-mundo",
+  "version": "1.0.0",
+  "description": "Juego de puzzles visuales - Rincones del Mundo",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Build completed'",
+    "serve": "npx http-server -p 8000"
+  },
+  "keywords": [
+    "puzzle",
+    "game",
+    "android",
+    "capacitor"
+  ],
+  "author": "Colisan",
+  "license": "MIT",
+  "devDependencies": {
+    "@capacitor/android": "^5.7.8",
+    "@capacitor/cli": "^5.7.8"
+  },
+  "dependencies": {
+    "@capacitor/core": "^5.7.8"
+  }
+}
