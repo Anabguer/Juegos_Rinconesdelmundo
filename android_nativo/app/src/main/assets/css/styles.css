@@ -277,7 +277,7 @@ body {
     padding: 20px;  /* Padding fijo */
     margin: 0;  /* Sin márgenes */
     position: fixed !important;  /* Posición fija */
-    bottom: 0 !important;  /* Pegado al fondo */
+    bottom: 60px !important;  /* Sobre el banner de AdMob */
     right: 0 !important;  /* Pegado a la derecha */
     left: 0 !important;  /* Ancho completo */
     z-index: 100 !important;  /* Z-index por debajo del toast */
@@ -296,20 +296,14 @@ body {
     font-size: 10px;  /* Tamaño de fuente pequeño */
     font-weight: 700;  /* Peso de fuente más grueso */
     cursor: pointer;
+    margin-top: 20px !important;
     transition: all 0.3s ease;
-    margin: 0;  /* Sin márgenes */
-    margin-top: -35px;  /* Posición normal (hacia arriba) */
     display: block !important;  /* Forzar display */
     visibility: visible !important;  /* Forzar visibilidad */
     opacity: 1 !important;  /* Forzar opacidad */
     min-width: 60px;  /* Ancho mínimo reducido */
     min-height: 20px;  /* Altura mínima reducida */
     height: 20px;  /* Altura fija */
-}
-
-/* Cuando el puzzle está completado, el botón sube 20px más */
-.puzzle-screen.puzzle-completed .next-button {
-    margin-top: -55px !important;  /* -35px + (-20px) = -55px */
 }
 
 .next-button:hover {
@@ -545,12 +539,12 @@ body {
     background: var(--light-gray);
     padding: var(--spacing-lg) 0;
     /* Altura ajustada para no cortar la última fila bajo la barra superior */
-    height: calc(100dvh - 60px);
+    height: 100vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     position: relative;
     /* espacio extra inferior para barras del sistema */
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 120px);
+    padding-bottom: 75px;
 }
 
 .worlds-header {
@@ -611,18 +605,18 @@ body {
     gap: var(--spacing-md);
     max-width: 100%;
     margin: 0 auto;
-    padding: 0 var(--spacing-sm) 100px var(--spacing-sm);
+    padding: 0 var(--spacing-sm) 75px var(--spacing-sm);
     width: 100%;
-    min-height: calc(100vh - 150px);
+    min-height: auto;
 }
 
 @media (max-width: 768px) {
     .worlds-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-sm);
-        padding: 0 var(--spacing-xs) 120px var(--spacing-xs);
+        padding: 0 var(--spacing-xs) 75px var(--spacing-xs);
         width: 100%;
-        min-height: calc(100vh - 120px);
+        min-height: auto;
     }
     
     .world-card {
@@ -737,6 +731,7 @@ body {
     padding-top: var(--spacing-sm);
     min-height: 100vh;
     overflow-y: auto;
+    padding-bottom: 80px; /* Espacio para el banner de AdMob */
 }
 
 .levels-header {
@@ -842,6 +837,7 @@ body {
     padding-top: var(--spacing-lg);
     overflow: visible;  /* Asegurar que el contenido sea visible */
     position: relative;  /* Posicionamiento relativo */
+    padding-bottom: 80px; /* Espacio para el banner de AdMob */
 }
 
 .puzzle-header {
@@ -914,7 +910,7 @@ body {
 /* El área del puzzle debe "llenar" el contenedor a lo alto */
 .puzzle-area {
   position: relative;
-  height: 75vh !important;   /* Aumentar altura al 75% del viewport */
+  height: 78vh !important;   /* Aumentar altura al 78% del viewport */
   width: 100%;               /* Ocupar todo el ancho disponible */
   max-width: 98vw;           /* Aumentar ancho máximo */
   margin: 0 auto;
@@ -922,7 +918,7 @@ body {
   overflow: hidden;
   /* Forzar que ocupe todo el espacio disponible */
   min-width: 95vw;           /* Aumentar ancho mínimo */
-  min-height: 75vh;          /* Aumentar altura mínima */
+  min-height: 78vh;          /* Aumentar altura mínima */
 }
 
 .puzzle-grid {
@@ -952,6 +948,28 @@ body {
     animation: correctPulse 0.6s ease-in-out;
 }
 
+.puzzle-tile.hint-correct {
+    border: 3px solid #4CAF50 !important;
+    box-shadow: 
+        0 0 20px rgba(76, 175, 80, 0.8),
+        inset 0 0 15px rgba(76, 175, 80, 0.3) !important;
+    animation: hintGlow 1.5s ease-in-out infinite !important;
+    z-index: 10 !important;
+}
+
+@keyframes hintGlow {
+    0%, 100% {
+        box-shadow: 
+            0 0 20px rgba(76, 175, 80, 0.8),
+            inset 0 0 15px rgba(76, 175, 80, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 0 30px rgba(76, 175, 80, 1),
+            inset 0 0 20px rgba(76, 175, 80, 0.5);
+    }
+}
+
 .puzzle-piece img {
     width: 100%;
     height: 100%;
@@ -978,10 +996,13 @@ body {
 .puzzle-tile {
     position: absolute;
     cursor: grab;
-    border: 1px solid rgba(0,0,0,0.2);
-    border-radius: var(--border-radius-sm);
+    border: none;
+    border-radius: 0;
     transition: all 0.2s ease;
     user-select: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 .puzzle-tile:hover {
@@ -994,8 +1015,7 @@ body {
 }
 
 .puzzle-tile.correct {
-    border-color: var(--success-color);
-    box-shadow: 0 0 0 2px rgba(81, 207, 102, 0.3);
+    /* Sin bordes para piezas correctamente colocadas durante el juego */
 }
 
 @keyframes correctPulse {
@@ -1128,7 +1148,7 @@ body {
         -webkit-overflow-scrolling: touch;
         overflow-y: auto; /* dejar al SO decidir y permitir inercia */
         overscroll-behavior: contain;
-        height: calc(100vh - 80px); /* debajo de la barra superior */
+        height: 98vh; /* altura para ampliar espacio en blanco inferior */
     }
 }
 
@@ -1544,7 +1564,7 @@ body {
 /* Indicador visual para puzzles completados */
 .puzzle-area.puzzle-completed {
   position: relative;
-  padding-bottom: 90px; /* reservar espacio para el toast inferior */
+  padding-bottom: 20px; /* reservar espacio para el toast inferior */
 }
 
 .puzzle-area.puzzle-completed::after {

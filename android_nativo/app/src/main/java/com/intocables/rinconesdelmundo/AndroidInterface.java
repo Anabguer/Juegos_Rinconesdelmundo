@@ -222,6 +222,12 @@ public class AndroidInterface {
     }
 
     @JavascriptInterface
+    public void showInterstitialAd() {
+        Log.d(TAG, "📺 showInterstitialAd() llamado desde JavaScript");
+        activity.runOnUiThread(() -> activity.showInterstitialAd());
+    }
+    
+    @JavascriptInterface
     public void getRanking() {
         Log.d(TAG, "🏆 getRanking() llamado desde JavaScript");
         

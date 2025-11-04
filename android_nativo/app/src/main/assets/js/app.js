@@ -1097,6 +1097,15 @@ class RinconesDelMundo {
         // Mezclar el puzzle actual (funcionalidad del botón de mezclar)
         if (!this.puzzle || !this.puzzleOrder) return;
         
+        // Mostrar anuncio antes de mezclar
+        this.showAd('mezclar', () => {
+            this.executeShuffle();
+        });
+    }
+    
+    executeShuffle() {
+        if (!this.puzzle || !this.puzzleOrder) return;
+        
         // Ocultar toast si existe
         this.hideCompletedToast();
         
@@ -1207,6 +1216,17 @@ class RinconesDelMundo {
 
     showLevelsScreen(world) {
         this.state.currentWorld = world;
+        
+        // Establecer currentLevel al primer nivel no completado de este mundo
+        let firstIncomplete = 1;
+        for (let level = 1; level <= GAME_CONFIG.levelsPerWorld; level++) {
+            if (!this.state.isLevelCompleted(world, level)) {
+                firstIncomplete = level;
+                break;
+            }
+        }
+        this.state.currentLevel = firstIncomplete;
+        
         this.showScreen('levels');
         
         // Ocultar toast si existe
@@ -1256,9 +1276,6 @@ class RinconesDelMundo {
         
         this.startPuzzle();
         this.setupPuzzleEvents();
-        
-        // Ocultar banner durante el juego
-        window.adMobManager.hideBanner();
     }
 
     showCompletedScreen() {
@@ -1674,8 +1691,8 @@ class RinconesDelMundo {
                     backgroundPosition: `${posX}% ${posY}%`,
                     backgroundRepeat: 'no-repeat',
                     cursor: 'grab',
-                    border: '1px solid rgba(0,0,0,0.2)',
-                    borderRadius: 'var(--border-radius-sm)',
+                    border: 'none',
+                    borderRadius: '0',
                     transition: 'all 0.2s ease'
                 });
             }
@@ -1731,17 +1748,25 @@ class RinconesDelMundo {
         const totalPieces = this.puzzleTiles.length;
         const { cols, rows } = this.getGridDimensions(totalPieces);
 
-        const cellW = w / cols;
-        const cellH = h / rows;
-
         const col = index % cols;
         const row = Math.floor(index / cols);
+
+        // Usar floor para posiciones y ceil para tamaños para evitar gaps
+        const cellW = Math.floor(w / cols);
+        const cellH = Math.floor(h / rows);
+        
+        // Para la última columna/fila, ajustar el tamaño para ocupar todo el espacio restante
+        const isLastCol = (col === cols - 1);
+        const isLastRow = (row === rows - 1);
+        
+        const finalWidth = isLastCol ? (w - col * cellW) : cellW;
+        const finalHeight = isLastRow ? (h - row * cellH) : cellH;
 
         return {
             left:  col * cellW,
             top:   row * cellH,
-            width: cellW,
-            height: cellH
+            width: finalWidth,
+            height: finalHeight
         };
     }
 
@@ -1763,6 +1788,10 @@ class RinconesDelMundo {
                 display: 'block', // Asegurar que se muestre
                 visibility: 'visible' // Asegurar que sea visible
             });
+            
+            // Agregar atributos para identificar posición actual y correcta
+            tile.dataset.currentPosition = pos;
+            tile.dataset.correctPosition = pieceIndex;
             
             // Marcar como correcta si está en su posición
             tile.classList.toggle('correct', pos === pieceIndex);
@@ -1940,6 +1969,14 @@ class RinconesDelMundo {
                 if (snapPreview) snapPreview.style.display = 'none';
                 dragging = null;
 
+                // Si se usó una pista, quitar el marcado de todas las piezas en el primer movimiento
+                if (this.hintUsed) {
+                    this.puzzleTiles.forEach(t => {
+                        t.classList.remove('hint-correct');
+                    });
+                    this.hintUsed = false;
+                }
+
                 this.renderPuzzlePositions(gridSize, board);
                 this.checkPuzzleComplete();
                 this.playSound?.('move');
@@ -1967,6 +2004,14 @@ class RinconesDelMundo {
     }
 
     handlePieceClick(clickedPiece, pieces) {
+        // Si se usó una pista, quitar el marcado de todas las piezas en el primer movimiento
+        if (this.hintUsed) {
+            pieces.forEach(piece => {
+                piece.classList.remove('hint-correct');
+            });
+            this.hintUsed = false;
+        }
+        
         const currentPos = parseInt(clickedPiece.dataset.currentPosition);
         const correctPos = parseInt(clickedPiece.dataset.correctPosition);
         
@@ -1988,6 +2033,14 @@ class RinconesDelMundo {
     }
 
     movePieceToCorrectPosition(piece, pieces) {
+        // Si se usó una pista, quitar el marcado de todas las piezas
+        if (this.hintUsed) {
+            pieces.forEach(p => {
+                p.classList.remove('hint-correct');
+            });
+            this.hintUsed = false;
+        }
+        
         const correctPos = parseInt(piece.dataset.correctPosition);
         const currentPos = parseInt(piece.dataset.currentPosition);
         
@@ -2043,9 +2096,12 @@ class RinconesDelMundo {
         this.state.totalTime += this.state.puzzleTime;
         this.state.saveProgress(); // Esto ya sincroniza con Firebase automáticamente
         
-        // Mostrar interstitial cada 5 niveles completados
-        if (this.state.completedLevels.size % 5 === 0) {
-            window.adMobManager.showInterstitial().catch(console.error);
+        // Mostrar interstitial cada 4 puzzles completados
+        if (this.state.completedLevels.size % 4 === 0) {
+            console.log('📺 Mostrando anuncio intersticial (cada 4 puzzles)');
+            if (window.AndroidInterface && window.AndroidInterface.showInterstitialAd) {
+                window.AndroidInterface.showInterstitialAd();
+            }
         }
         
         // Actualizar imagen a completa
@@ -2241,6 +2297,27 @@ class RinconesDelMundo {
         order[wrongPos] = otherAtCorrect;
 
         this.renderPuzzlePositions(gridSize, container);
+        
+        // DESPUÉS del render, marcar SOLO la pieza que acabamos de colocar correctamente
+        setTimeout(() => {
+            const pieces = container.querySelectorAll('.puzzle-tile');
+            console.log('🔍 Total de piezas encontradas:', pieces.length);
+            console.log('🔍 Pieza correcta a marcar:', pieceIndex);
+            
+            pieces.forEach((piece) => {
+                const correctPos = parseInt(piece.dataset.correctPosition);
+                
+                // Marcar SOLO la pieza que acabamos de mover a su posición correcta
+                if (correctPos === pieceIndex) {
+                    piece.classList.add('hint-correct');
+                    console.log(`✅ Pieza ${correctPos} marcada`);
+                }
+            });
+            
+            // Guardar que se usó una pista para quitar el marcado en el próximo movimiento
+            this.hintUsed = true;
+        }, 200);
+        
         this.checkPuzzleComplete();
     }
 
@@ -2286,53 +2363,23 @@ class RinconesDelMundo {
     }
 
     showAd(type, callback = null) {
-        // Simular anuncio (en una implementación real, aquí se mostraría un anuncio real)
         console.log(`📺 Mostrando anuncio para: ${type}`);
         
-        // Crear un overlay temporal para simular el anuncio
-        const adOverlay = document.createElement('div');
-        adOverlay.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 4000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-        `;
+        // Guardar callback para ejecutarlo cuando se cierre el anuncio
+        if (callback) {
+            window.__pendingAdCallback = callback;
+        }
         
-        const adContent = document.createElement('div');
-        adContent.style.cssText = `
-            text-align: center;
-            padding: 40px;
-            background: linear-gradient(135deg, #4a90e2, #7b68ee);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        `;
-        
-        adContent.innerHTML = `
-            <div style="font-size: 60px; margin-bottom: 20px;">📺</div>
-            <h2 style="margin: 0 0 10px 0;">Anuncio</h2>
-            <p style="margin: 0; opacity: 0.8;">${type === 'pista' ? '💡 Pista disponible' : '👁️ Vista previa disponible'}</p>
-        `;
-        
-        adOverlay.appendChild(adContent);
-        document.body.appendChild(adOverlay);
-        
-        // Simular duración del anuncio (2 segundos)
-        setTimeout(() => {
-            document.body.removeChild(adOverlay);
-            // Ejecutar callback si se proporciona
+        // Mostrar anuncio intersticial real
+        if (window.AndroidInterface && window.AndroidInterface.showInterstitialAd) {
+            window.AndroidInterface.showInterstitialAd();
+        } else {
+            // Si no hay AndroidInterface, ejecutar callback inmediatamente
+            console.warn('AndroidInterface no disponible, ejecutando callback directamente');
             if (callback && typeof callback === 'function') {
                 callback();
             }
-        }, 2000);
+        }
     }
 
     // ===== PANTALLA DE COMPLETADO =====

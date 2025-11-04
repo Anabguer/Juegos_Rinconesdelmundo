@@ -36,6 +36,10 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
 
 public class GameActivity extends Activity {
     private static final String TAG = "AndroidInterface";
@@ -44,6 +48,7 @@ public class GameActivity extends Activity {
     
     private WebView webView;
     private AdView adView;
+    private InterstitialAd interstitialAd;
     private GameManager gameManager;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
@@ -74,6 +79,9 @@ public class GameActivity extends Activity {
                 } catch (Exception e) {
                     Log.e(TAG, "Error cargando AdView: " + e.getMessage(), e);
                 }
+                
+                // Cargar primer anuncio intersticial
+                loadInterstitialAd();
             }
         });
         
@@ -227,6 +235,63 @@ public class GameActivity extends Activity {
             }
         } catch (Exception e) {
             Log.e(TAG, "Error en onDestroy de AdView: " + e.getMessage());
+        }
+    }
+
+    // ===== ANUNCIOS INTERSTICIALES =====
+    public void loadInterstitialAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712", adRequest,
+            new InterstitialAdLoadCallback() {
+                @Override
+                public void onAdLoaded(InterstitialAd ad) {
+                    interstitialAd = ad;
+                    Log.d(TAG, "✅ Anuncio intersticial cargado");
+                    
+                    // Configurar callbacks para cuando se muestra el anuncio
+                    interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        @Override
+                        public void onAdDismissedFullScreenContent() {
+                            Log.d(TAG, "📱 Anuncio cerrado");
+                            interstitialAd = null;
+                            // Notificar a JavaScript que el anuncio se cerró
+                            evalJS("window.__onAdClosed && __onAdClosed()");
+                            // Cargar el siguiente anuncio
+                            loadInterstitialAd();
+                        }
+
+                        @Override
+                        public void onAdFailedToShowFullScreenContent(com.google.android.gms.ads.AdError adError) {
+                            Log.e(TAG, "❌ Error mostrando anuncio: " + adError.getMessage());
+                            interstitialAd = null;
+                            evalJS("window.__onAdClosed && __onAdClosed()");
+                            loadInterstitialAd();
+                        }
+
+                        @Override
+                        public void onAdShowedFullScreenContent() {
+                            Log.d(TAG, "📺 Anuncio mostrado en pantalla completa");
+                        }
+                    });
+                }
+
+                @Override
+                public void onAdFailedToLoad(LoadAdError loadAdError) {
+                    Log.e(TAG, "❌ Error cargando anuncio: " + loadAdError.getMessage());
+                    interstitialAd = null;
+                }
+            });
+    }
+
+    public void showInterstitialAd() {
+        if (interstitialAd != null) {
+            Log.d(TAG, "📺 Mostrando anuncio intersticial...");
+            interstitialAd.show(this);
+        } else {
+            Log.w(TAG, "⚠️ Anuncio no está listo, cargando...");
+            evalJS("window.__onAdClosed && __onAdClosed()");
+            loadInterstitialAd();
         }
     }
 

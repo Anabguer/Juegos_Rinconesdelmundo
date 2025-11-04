@@ -929,6 +929,18 @@
         document.getElementById('deleteAccountModal').classList.add('hidden');
     }
     
+    // ========== CALLBACK DE ANUNCIOS ==========
+    window.__onAdClosed = function() {
+        console.log('📱 Callback: Anuncio cerrado');
+        
+        // Ejecutar callback pendiente si existe
+        if (window.__pendingAdCallback && typeof window.__pendingAdCallback === 'function') {
+            console.log('✅ Ejecutando callback pendiente');
+            window.__pendingAdCallback();
+            window.__pendingAdCallback = null;
+        }
+    };
+    
     // ========== FUNCIONES DE RANKING ==========
     function openRankingModal() {
         document.getElementById('ranking-modal').classList.remove('hidden');
