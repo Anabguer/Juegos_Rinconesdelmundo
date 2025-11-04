@@ -2032,7 +2032,7 @@ body {
 
 /* Modal de información */
 .modal-info {
-    max-width: 500px;
+    max-width: 650px;
     background: linear-gradient(135deg, #312e81, #581c87, #0f172a);
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
@@ -2040,6 +2040,8 @@ body {
 
 .modal-content-info {
     padding: 24px;
+    max-height: 70vh;
+    overflow-y: auto;
 }
 
 .modal-content-info p {
